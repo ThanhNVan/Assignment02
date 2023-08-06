@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\02 Libraries\Assignment02.SharedLibrary.BaseEntityDataProvider\Assignment02.SharedLibrary.BaseEntityDataProvider.csproj" />
+    <ProjectReference Include="..\..\01 Entity Providers\Assignment02.EntityProviders\Assignment02.EntityProviders.csproj" />
+  </ItemGroup>
+
+</Project>

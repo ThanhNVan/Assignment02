@@ -1,0 +1,64 @@
+﻿using Assignment02.SharedLibrary;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+namespace Assignment02.EntityProviders;
+
+[Table(nameof(User))]
+[Index(nameof(Email), IsUnique = true)]
+public class User : BaseEntity
+{
+    #region [ Properties ]
+    [Required]
+    [DataType(DataType.EmailAddress)]
+    public string Email { get; set; }
+    
+    [Required]
+    [DataType(DataType.Password)]
+    public string Password { get; set; }
+
+    [Required]
+    [DataType(DataType.Text)]
+    public string FirstName { get; set; }
+    
+    [Required]
+    [DataType(DataType.Text)]
+    public string MiddleName { get; set; }
+
+    [Required]
+    [DataType(DataType.Text)]
+    public string LastName { get; set; }
+
+    [Required]
+    [DataType(DataType.DateTime)]
+    public DateTime HiredDate { get; set; }
+    #endregion
+
+    #region [ FK Properties ]
+    [Required]
+    [DataType(DataType.Text)]
+    public string RoleId { get; set; }
+
+    [Required]
+    [DataType(DataType.Text)]
+    [ForeignKey("User_Publisher")]
+    public string PublisherId { get; set; }
+    #endregion
+
+    #region [ Virtual Entity FK Properties ]
+    [JsonIgnore]
+    [ForeignKey("User_Role")]
+    public virtual Role? Role { get; set; }
+    
+    [JsonIgnore]
+    [ForeignKey("User_Publisher")]
+    public virtual Publisher? Publisher { get; set; }
+    #endregion
+}
