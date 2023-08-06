@@ -1,9 +1,9 @@
+using Assignment02.DataProviders;
 using Assignment02.EntityProviders;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Assignment02.LogicProviders;
 
 namespace Assignment02.WebApiHost;
 
@@ -12,16 +12,11 @@ public class Program
     public static void Main(string[] args) {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
-
-        //builder.Services.AddDbContext<AppDbContext>(
-        //    option => {
-        //        option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-        //        option.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-        //    });
+        builder.Services.AddDataServices();
+        builder.Services.AddLogicServices();
         builder.Services.AddSqlServerProviders(builder.Configuration);
         builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 

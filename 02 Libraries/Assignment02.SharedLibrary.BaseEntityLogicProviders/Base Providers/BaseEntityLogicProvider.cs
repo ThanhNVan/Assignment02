@@ -33,7 +33,7 @@ public abstract class BaseEntityLogicProvider<TEntity, TDataProvider> : IBaseEnt
     public async virtual Task<TEntity> GetSingleByIdAsync(string id) {
         var result = default(TEntity);
         if (string.IsNullOrEmpty(id)) {
-            this._logger.LogWarning($"IsNullOrEmpty: {nameof(TEntity)}");
+            this._logger.LogWarning($"IsNullOrEmpty: {nameof(TEntity)} Id");
             return result;
         }
         result = await this._dataProvider.GetSingleByIdAsync(id);

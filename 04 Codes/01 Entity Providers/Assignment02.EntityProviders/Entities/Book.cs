@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace Assignment02.EntityProviders;
 
+[Table(nameof(Book))]
 public class Book : BaseEntity
 {
     #region [ Properties ]

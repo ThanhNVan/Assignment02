@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\04 Codes\01 Entity Providers\Assignment02.EntityProviders\Assignment02.EntityProviders.csproj" />
+  </ItemGroup>
+
 </Project>

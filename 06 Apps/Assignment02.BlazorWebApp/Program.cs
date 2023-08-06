@@ -1,9 +1,10 @@
 using Assignment02.BlazorWebApp.Data;
+using Assignment02.HttpClientProviders;
+using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Fast.Components.FluentUI;
 
 namespace Assignment02.BlazorWebApp
 {
@@ -13,6 +14,10 @@ namespace Assignment02.BlazorWebApp
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddHttpClientProviders(builder.Configuration);
+            builder.Services.AddFluentUIComponents();
+            builder.Services.AddBlazoredSessionStorage();
+
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
             builder.Services.AddSingleton<WeatherForecastService>();
