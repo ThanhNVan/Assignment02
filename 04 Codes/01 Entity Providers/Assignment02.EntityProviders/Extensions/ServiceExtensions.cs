@@ -24,5 +24,10 @@ public static class ServiceExtensions
             options.EnableSensitiveDataLogging();
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         });
+
+        var adminEntity = new Admin();
+        configuration.GetSection("Admin").Bind(adminEntity);
+
+        services.AddSingleton(adminEntity);
     }
 }

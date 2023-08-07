@@ -12,9 +12,9 @@ public class Program
     public static void Main(string[] args) {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.AddSqlServerProviders(builder.Configuration);
         builder.Services.AddDataServices();
         builder.Services.AddLogicServices();
-        builder.Services.AddSqlServerProviders(builder.Configuration);
         builder.Services.AddControllers();
         
         builder.Services.AddEndpointsApiExplorer();

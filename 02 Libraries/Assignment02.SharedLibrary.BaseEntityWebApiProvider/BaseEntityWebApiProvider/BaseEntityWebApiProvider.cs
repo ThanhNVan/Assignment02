@@ -13,8 +13,8 @@ public abstract class BaseEntityWebApiProvider<TEntity, TLogicProvider> : Contro
     where TEntity : BaseEntity
     where TLogicProvider : IBaseEntityLogicProvider<TEntity> {
     #region [ Fields ]
-    private readonly ILogger<BaseEntityWebApiProvider<TEntity, TLogicProvider>> _logger;
-    private readonly IBaseEntityLogicProvider<TEntity> _logicProvider;
+    protected readonly ILogger<BaseEntityWebApiProvider<TEntity, TLogicProvider>> _logger;
+    protected readonly IBaseEntityLogicProvider<TEntity> _logicProvider;
     #endregion
 
     #region [ CTor ]
