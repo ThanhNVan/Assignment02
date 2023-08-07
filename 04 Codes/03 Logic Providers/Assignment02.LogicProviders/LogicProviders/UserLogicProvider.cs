@@ -21,6 +21,14 @@ public class UserLogicProvider : BaseEntityLogicProvider<User, IUserDataProvider
 
     #region [ Public Methods - Login ]
     public async Task<bool> IsAdminLoginAsync(string email, string password) {
+        if (string.IsNullOrEmpty(email)) {
+            return false;
+        }
+
+        if (string.IsNullOrEmpty(password)) {
+            return false;
+        }
+
         if (email == Admin.Email && password == Admin.Password) {
             await Task.CompletedTask;
             return true;

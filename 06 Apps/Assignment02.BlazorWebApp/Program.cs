@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Fast.Components.FluentUI;
+using Syncfusion.Blazor;
 
 namespace Assignment02.BlazorWebApp;
 
@@ -13,6 +14,7 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
+        builder.Services.AddSyncfusionBlazor();
         builder.Services.AddHttpClientProviders(builder.Configuration);
         builder.Services.AddFluentUIComponents();
         builder.Services.AddBlazoredSessionStorage();
@@ -20,8 +22,8 @@ public class Program
         builder.Services.AddRazorPages();
         builder.Services.AddServerSideBlazor();
 
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(builder.Configuration["SyncfusionKey"]);
         var app = builder.Build();
-
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment()) {
             app.UseExceptionHandler("/Error");

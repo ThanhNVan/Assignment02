@@ -1,8 +1,37 @@
 ﻿@page "/"
+@using Microsoft.Fast.Components.FluentUI
+@namespace Assignment02.BlazorWebApp
 
-<PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<PageTitle>Login</PageTitle>
 
-Welcome to your new app.
+<div class="container mt-5">
+    <div class="row justify-content-center align-content-between">
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <h2 class="mb-3">Login</h2>
+            <table border="0" cellpadding="2" cellspacing="2">
+                <tr>
 
+                    <td><FluentTextField TextFieldType="TextFieldType.Email" placeholder="Email Address" @bind-Value=Email></FluentTextField></td>
+
+                </tr>
+                <tr>
+                    <td><FluentTextField TextFieldType="TextFieldType.Password" placeholder="Password" @bind-Value=Password></FluentTextField></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <h4 class="text-danger">@Warning</h4>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <FluentButton @onclick="async () => await LoginAsync()" Appearance="Appearance.Outline">Login</FluentButton>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>
