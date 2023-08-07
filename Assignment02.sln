@@ -32,27 +32,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 HttpClient Providers", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment02.SharedLibrary.BaseEntity", "02 Libraries\Assignment02.SharedLibrary.BaseEntity\Assignment02.SharedLibrary.BaseEntity.csproj", "{B0887444-D065-41B3-BEC6-3F8478ACE25A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment02.SharedLibrary.BaseEntityDataProvider", "02 Libraries\Assignment02.SharedLibrary.BaseEntityDataProvider\Assignment02.SharedLibrary.BaseEntityDataProvider.csproj", "{A538C471-D1FE-418F-8E11-FF7724ED27C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment02.SharedLibrary.BaseEntityDataProvider", "02 Libraries\Assignment02.SharedLibrary.BaseEntityDataProvider\Assignment02.SharedLibrary.BaseEntityDataProvider.csproj", "{A538C471-D1FE-418F-8E11-FF7724ED27C9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment02.SharedLibrary.BaseEntityLogicProvider", "02 Libraries\Assignment02.SharedLibrary.BaseEntityLogicProviders\Assignment02.SharedLibrary.BaseEntityLogicProvider.csproj", "{15513B73-6604-4861-A452-BA3B7AB5882F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment02.SharedLibrary.BaseEntityWebApiProvider", "02 Libraries\Assignment02.SharedLibrary.BaseEntityWebApiProvider\Assignment02.SharedLibrary.BaseEntityWebApiProvider.csproj", "{A08438A7-A24D-4375-8D40-757406717677}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment02.SharedLibrary.BaseEntityWebApiProvider", "02 Libraries\Assignment02.SharedLibrary.BaseEntityWebApiProvider\Assignment02.SharedLibrary.BaseEntityWebApiProvider.csproj", "{A08438A7-A24D-4375-8D40-757406717677}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment02.SharedLibrary.BaseEntityHttpClientProvider", "02 Libraries\Assignment02.SharedLibrary.BaseEntityHttpClientProvider\Assignment02.SharedLibrary.BaseEntityHttpClientProvider.csproj", "{BCD34724-3C98-41C6-A3B4-1F18C2E0F10D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment02.SharedLibrary.BaseEntityHttpClientProvider", "02 Libraries\Assignment02.SharedLibrary.BaseEntityHttpClientProvider\Assignment02.SharedLibrary.BaseEntityHttpClientProvider.csproj", "{BCD34724-3C98-41C6-A3B4-1F18C2E0F10D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment02.EntityProviders", "04 Codes\01 Entity Providers\Assignment02.EntityProviders\Assignment02.EntityProviders.csproj", "{7A3CD5AC-E59F-49DD-B576-6001088D355C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment02.EntityProviders", "04 Codes\01 Entity Providers\Assignment02.EntityProviders\Assignment02.EntityProviders.csproj", "{7A3CD5AC-E59F-49DD-B576-6001088D355C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment02.DataProviders", "04 Codes\02 Data Providers\Assignment02.DataProviders\Assignment02.DataProviders.csproj", "{4049D133-FA93-41F6-802E-0ED6A063E0C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment02.DataProviders", "04 Codes\02 Data Providers\Assignment02.DataProviders\Assignment02.DataProviders.csproj", "{4049D133-FA93-41F6-802E-0ED6A063E0C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment02.LogicProviders", "04 Codes\03 Logic Providers\Assignment02.LogicProviders\Assignment02.LogicProviders.csproj", "{BD2FBA9A-B649-42AF-A671-455F6CE57258}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment02.LogicProviders", "04 Codes\03 Logic Providers\Assignment02.LogicProviders\Assignment02.LogicProviders.csproj", "{BD2FBA9A-B649-42AF-A671-455F6CE57258}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment02.WebApiProviders", "04 Codes\04 WebApi Providers\Assignment02.WebApiProviders\Assignment02.WebApiProviders.csproj", "{52F00D25-08FF-49D4-AA3B-462005D58A06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment02.WebApiProviders", "04 Codes\04 WebApi Providers\Assignment02.WebApiProviders\Assignment02.WebApiProviders.csproj", "{52F00D25-08FF-49D4-AA3B-462005D58A06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment02.HttpClientProviders", "04 Codes\05 HttpClient Providers\Assignment02.HttpClientProviders\Assignment02.HttpClientProviders.csproj", "{6C6FBFF1-1521-42AD-AFDA-28F36D621223}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment02.HttpClientProviders", "04 Codes\05 HttpClient Providers\Assignment02.HttpClientProviders\Assignment02.HttpClientProviders.csproj", "{6C6FBFF1-1521-42AD-AFDA-28F36D621223}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment02.WebApiHost", "05 Hosts\Assignment02.WebApiHost\Assignment02.WebApiHost.csproj", "{136A9E71-56FC-443E-AFF2-1400F75D223A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment02.WebApiHost", "05 Hosts\Assignment02.WebApiHost\Assignment02.WebApiHost.csproj", "{136A9E71-56FC-443E-AFF2-1400F75D223A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment02.BlazorWebApp", "06 Apps\Assignment02.BlazorWebApp\Assignment02.BlazorWebApp.csproj", "{E0D60F3D-9C52-402F-BF93-48B65C0E80CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment02.BlazorWebApp", "06 Apps\Assignment02.BlazorWebApp\Assignment02.BlazorWebApp.csproj", "{E0D60F3D-9C52-402F-BF93-48B65C0E80CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -19,12 +19,10 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
 
     #region [ CTor ]
     public BaseEntityHttpClientProvider(IHttpClientFactory httpClientFactory,
-                                        ILogger<BaseEntityHttpClientProvider<TEntity>> logger,
-                                        string entityUrl) {
+                                        ILogger<BaseEntityHttpClientProvider<TEntity>> logger) {
 
         this._httpClientFactory = httpClientFactory;
         this._logger = logger;
-        this._entityUrl = entityUrl;
     }
     #endregion
 
@@ -123,18 +121,108 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
     }
 
     public virtual async Task<IEnumerable<TEntity>> GetListAllAsync() {
+        try {
+            var url = this._entityUrl + MethodUrl.GetListAll;
 
+            var httpClient = this.CreateClient();
+
+            var response = await httpClient.GetFromJsonAsync<IEnumerable<TEntity>>(url);
+
+            return response;
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            throw;
+        }
     }
 
-    Task<IEnumerable<TEntity>> GetListIsDeletedAsync();
+    public virtual async Task<IEnumerable<TEntity>> GetListIsDeletedAsync() {
+        try {
+            var url = this._entityUrl + MethodUrl.GetListIsDeleted;
 
-    Task<IEnumerable<TEntity>> GetListIsNotDeletedAsync();
+            var httpClient = this.CreateClient();
 
-    Task<int> CountAllAsync();
+            var response = await httpClient.GetFromJsonAsync<IEnumerable<TEntity>>(url);
 
-    Task<int> CountIsDeletedAsync();
+            return response;
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            throw;
+        }
+    }
 
-    Task<int> CountIsNotDeletedAsync();
+    public virtual async Task<IEnumerable<TEntity>> GetListIsNotDeletedAsync() {
+        try {
+            var url = this._entityUrl + MethodUrl.GetListIsNotDeleted;
+
+            var httpClient = this.CreateClient();
+
+            var response = await httpClient.GetFromJsonAsync<IEnumerable<TEntity>>(url);
+
+            return response;
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            throw;
+        }
+    }
+
+    public virtual async Task<int> CountAllAsync() {
+        try {
+            var url = this._entityUrl + MethodUrl.CountAll;
+
+            var httpClient = this.CreateClient();
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode) {
+                var result = JsonConvert.DeserializeObject<int>(await response.Content.ReadAsStringAsync());
+                return result;
+            }
+
+            return -1;
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            throw;
+        }
+    }
+
+    public virtual async Task<int> CountIsDeletedAsync() {
+        try {
+            var url = this._entityUrl + MethodUrl.CountIsDeleted;
+
+            var httpClient = this.CreateClient();
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode) {
+                var result = JsonConvert.DeserializeObject<int>(await response.Content.ReadAsStringAsync());
+                return result;
+            }
+
+            return -1;
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            throw;
+        }
+    }
+    public virtual async Task<int> CountIsNotDeletedAsync() {
+        try {
+            var url = this._entityUrl + MethodUrl.CountIsNotDeleted;
+
+            var httpClient = this.CreateClient();
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode) {
+                var result = JsonConvert.DeserializeObject<int>(await response.Content.ReadAsStringAsync());
+                return result;
+            }
+
+            return -1;
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            throw;
+        }
+    }
     #endregion
 
     #region [ Private Methods -  ]

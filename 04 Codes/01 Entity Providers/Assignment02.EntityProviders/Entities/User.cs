@@ -44,17 +44,24 @@ public class User : BaseEntity
 
     [Required]
     [DataType(DataType.Text)]
-    [ForeignKey("User_Publisher")]
     public string PublisherId { get; set; }
     #endregion
 
     #region [ Virtual Entity FK Properties ]
     [JsonIgnore]
     [ForeignKey("User_Role")]
+    //[InverseProperty("Users")]
     public virtual Role? Role { get; set; }
     
     [JsonIgnore]
     [ForeignKey("User_Publisher")]
+    //[InverseProperty("Users")]
     public virtual Publisher? Publisher { get; set; }
+    #endregion
+
+    #region [ CTor ]
+    public User() {
+
+    }
     #endregion
 }

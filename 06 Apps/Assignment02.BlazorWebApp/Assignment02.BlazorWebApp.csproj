@@ -15,4 +15,13 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\04 Codes\05 HttpClient Providers\Assignment02.HttpClientProviders\Assignment02.HttpClientProviders.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Data\" />
+	  <Folder Include="Pages\Book\" />
+	  <Folder Include="Pages\BookAuthor\" />
+	  <Folder Include="Pages\Role\" />
+	  <Folder Include="Pages\User\" />
+	  <Folder Include="Pages\Publisher\" />
+	</ItemGroup>
 </Project>

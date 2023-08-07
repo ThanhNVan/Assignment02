@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\04 Codes\01 Entity Providers\Assignment02.EntityProviders\Assignment02.EntityProviders.csproj" />
+    <ProjectReference Include="..\..\04 Codes\02 Data Providers\Assignment02.DataProviders\Assignment02.DataProviders.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,6 @@
 ﻿using Assignment02.SharedLibrary;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -46,6 +47,17 @@ public class Book : BaseEntity
     #region [ Virtual FK Properties ]
     [JsonIgnore]
     [ForeignKey("Book_Publisher")]
-    public virtual Publisher? Publisher { get; set; }
+    //[InverseProperty("Books")]
+    public virtual Publisher? Publisher { get; set; } 
+    
+    [JsonIgnore]
+    //[InverseProperty("Books")]
+    public virtual ICollection<BookAuthor>? BookAuthor { get; set; }
+    #endregion
+
+    #region [ CTor ]
+    public Book() {
+
+    }
     #endregion
 }

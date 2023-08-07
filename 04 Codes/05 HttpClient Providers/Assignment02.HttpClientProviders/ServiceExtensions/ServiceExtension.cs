@@ -11,6 +11,10 @@ public static class ServiceExtension
         services.AddHttpClient(RoutingUrl.BaseClientName, clients => {
             clients.BaseAddress = new Uri(configuration["BaseUrl"]);
         });
+
+        services.AddTransient<IAuthorHttpClientProvider, AuthorHttpClientProvider>();   
+
+        services.AddTransient<HttpClientContext>();
     }
     #endregion
 }

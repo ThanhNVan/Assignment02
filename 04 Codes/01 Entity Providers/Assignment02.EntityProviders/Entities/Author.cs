@@ -1,7 +1,9 @@
 ﻿using Assignment02.SharedLibrary;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Assignment02.EntityProviders;
 
@@ -41,5 +43,17 @@ public class Author : BaseEntity
 
     [DataType(DataType.PostalCode)]
     public string Zip { get; set; }
-	#endregion
+    #endregion
+
+    #region [ Virtual Entity FK Properties ]
+    [JsonIgnore]
+    //[InverseProperty("Author")]
+    public virtual ICollection<BookAuthor> BookAuthor { get; set; }
+    #endregion
+
+    #region [ CTor ]
+    public Author() {
+
+    }
+    #endregion
 }
