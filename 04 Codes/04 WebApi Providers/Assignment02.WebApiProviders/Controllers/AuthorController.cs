@@ -1,8 +1,8 @@
 ﻿using Assignment02.EntityProviders;
 using Assignment02.LogicProviders;
 using Assignment02.SharedLibrary;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+//using Microsoft.AspNetCore.Authorization;
+//using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace Assignment02.WebApiProviders;
@@ -22,8 +22,8 @@ public class AuthorController : BaseEntityWebApiProvider<Author, IAuthorLogicPro
     #endregion
 
     #region [ Public Methods -  ]
-    //[HttpGet(nameof(MethodUrl.GetListIsNotDeleted))]
     //[Authorize]
+    //[HttpGet(nameof(MethodUrl.GetListIsNotDeleted))]
     //public async override Task<IActionResult> GetListIsNotDeletedAsync() {
     //    return await base.GetListIsNotDeletedAsync();
     //}

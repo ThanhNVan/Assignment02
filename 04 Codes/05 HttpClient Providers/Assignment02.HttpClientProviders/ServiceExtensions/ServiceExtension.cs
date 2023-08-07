@@ -13,6 +13,11 @@ public static class ServiceExtension
         });
 
         services.AddTransient<IAuthorHttpClientProvider, AuthorHttpClientProvider>();   
+        services.AddTransient<IBookAuthorHttpClientProvider, BookAuthorHttpClientProvider>();   
+        services.AddTransient<IBookHttpClientProvider, BookHttpClientProvider>();   
+        services.AddTransient<IPublisherHttpClientProvider, PublisherHttpClientProvider>();   
+        services.AddTransient<IRoleHttpClientProvider, RoleHttpClientProvider>();   
+        services.AddTransient<IUserHttpClientProvider, UserHttpClientProvider>();   
 
         services.AddTransient<HttpClientContext>();
     }
