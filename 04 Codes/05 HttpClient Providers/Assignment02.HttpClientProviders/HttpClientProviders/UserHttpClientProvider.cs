@@ -2,6 +2,7 @@
 using Assignment02.SharedLibrary;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Net.Http.Json;
 
 namespace Assignment02.HttpClientProviders;
@@ -16,17 +17,34 @@ public class UserHttpClientProvider : BaseEntityHttpClientProvider<User>, IUserH
     #endregion
 
     #region [ Public Methods - Login ]
-    public async Task<bool> IsAdminLoginAsync(string email, string password) {
+    public async Task<bool> IsAdminLoginAsync(LoginModel model) {
         try {
-            var url = this._entityUrl + MethodUrl.Login;
+            var url = this._entityUrl + MethodUrl.AdminLogin;
             var httpClient = this.CreateClient();
-            var adminEntity = new Admin() { Email = email, Password = password };
-            var response = await httpClient.PostAsJsonAsync(url, adminEntity);
+            var response = await httpClient.PostAsJsonAsync(url, model);
 
             if (response.IsSuccessStatusCode) {
                 return true;
             }
             return false;
+
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            throw;
+        }
+    }
+
+    public async Task<User> LoginAsync(LoginModel model) {
+        try {
+            var url = this._entityUrl + MethodUrl.Login;
+            var httpClient = this.CreateClient();
+            var response = await httpClient.PostAsJsonAsync(url, model);
+
+            if (response.IsSuccessStatusCode) {
+                var result = JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync());
+                return result;
+            }
+            return null;
 
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);

@@ -25,7 +25,7 @@ public static class ServiceExtensions
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         });
 
-        var adminEntity = new Admin();
+        var adminEntity = new LoginModel();
         configuration.GetSection("Admin").Bind(adminEntity);
 
         services.AddSingleton(adminEntity);

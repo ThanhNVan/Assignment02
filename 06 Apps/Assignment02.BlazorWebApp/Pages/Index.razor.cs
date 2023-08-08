@@ -32,7 +32,7 @@ public partial class Index
             return;
         }
 
-        var isAdmin = await HttpClientContext.User.IsAdminLoginAsync(Email, Password);
+        var isAdmin = await HttpClientContext.User.IsAdminLoginAsync(new LoginModel() {Email = Email, Password = Password});
 
         if (isAdmin) {
             await SessionStorage.SetItemAsStringAsync(AppRole.Role, AppRole.Admin);

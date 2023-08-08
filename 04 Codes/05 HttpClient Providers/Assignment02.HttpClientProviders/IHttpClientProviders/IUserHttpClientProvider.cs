@@ -6,7 +6,7 @@ namespace Assignment02.HttpClientProviders;
 public interface IUserHttpClientProvider : IBaseEntityHttpClientProvider<User>
 {
     #region [ Public Methods - Login ]
-    Task<bool> IsAdminLoginAsync(string email, string password);
+    Task<bool> IsAdminLoginAsync(LoginModel model);
     #endregion
 
     #region [ Public Methods - List ]

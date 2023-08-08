@@ -1,6 +1,6 @@
 ﻿namespace Assignment02.EntityProviders;
 
-public class Admin
+public class LoginModel
 {
 	#region [ Properties ]
 	public string Email { get; set; }

@@ -17,6 +17,7 @@ public class Program
         builder.Services.AddSyncfusionBlazor();
         builder.Services.AddHttpClientProviders(builder.Configuration);
         builder.Services.AddFluentUIComponents();
+        builder.Services.AddDataGridEntityFrameworkAdapter();
         builder.Services.AddBlazoredSessionStorage();
 
         builder.Services.AddRazorPages();
