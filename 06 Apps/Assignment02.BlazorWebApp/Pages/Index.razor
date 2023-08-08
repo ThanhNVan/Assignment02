@@ -1,5 +1,6 @@
 ﻿@page "/"
-@using Microsoft.Fast.Components.FluentUI
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Inputs
 @namespace Assignment02.BlazorWebApp
 
 
@@ -12,11 +13,11 @@
             <table border="0" cellpadding="2" cellspacing="2">
                 <tr>
 
-                    <td><FluentTextField TextFieldType="TextFieldType.Email" placeholder="Email Address" @bind-Value=Email></FluentTextField></td>
+                    <td><SfTextBox Type="InputType.Email" Placeholder="Email Address" @bind-Value=Email></SfTextBox></td>
 
                 </tr>
                 <tr>
-                    <td><FluentTextField TextFieldType="TextFieldType.Password" placeholder="Password" @bind-Value=Password></FluentTextField></td>
+                    <td><SfTextBox Type="InputType.Password" Placeholder="Password" @bind-Value=Password></SfTextBox></td>
                 </tr>
 
                 <tr>
@@ -27,7 +28,7 @@
 
                 <tr>
                     <td>
-                        <FluentButton @onclick="async () => await LoginAsync()" Appearance="Appearance.Outline">Login</FluentButton>
+                        <SfButton @onclick="async () => await LoginAsync()" >Login</SfButton>
                     </td>
                 </tr>
 
