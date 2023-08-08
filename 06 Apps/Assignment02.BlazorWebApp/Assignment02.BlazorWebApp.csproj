@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -10,7 +10,7 @@
 		<PackageReference Include="Blazored.SessionStorage" Version="2.3.0" />
 		<PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="2.4.1" />
 		<PackageReference Include="Syncfusion.Blazor" Version="22.2.5" />
-		<PackageReference Include="Microsoft.Fast.Components.FluentUI.DataGrid.EntityFrameworkAdapter" Version="2.1.4" />
+		
 	</ItemGroup>
 
 	<ItemGroup>
@@ -19,10 +19,10 @@
 
 	<ItemGroup>
 	  <Folder Include="Data\" />
-	  <Folder Include="Pages\Book\" />
-	  <Folder Include="Pages\BookAuthor\" />
-	  <Folder Include="Pages\Role\" />
-	  <Folder Include="Pages\User\" />
-	  <Folder Include="Pages\Publisher\" />
+	  <Folder Include="Pages\Admin\Book\" />
+	  <Folder Include="Pages\Admin\BookAuthor\" />
+	  <Folder Include="Pages\Admin\Role\" />
+	  <Folder Include="Pages\Admin\User\" />
+	  <Folder Include="Pages\Admin\Publisher\" />
 	</ItemGroup>
 </Project>

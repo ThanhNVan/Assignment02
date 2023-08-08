@@ -4,6 +4,7 @@ public static class AppRole
 {
     #region [ Properties ]
     public static string Admin = "Admin";
+    public static string Member = "Member";
     public static string Role = "Role";
     #endregion
 }

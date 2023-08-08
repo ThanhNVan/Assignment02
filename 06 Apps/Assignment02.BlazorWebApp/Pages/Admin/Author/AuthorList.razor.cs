@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Assignment02.BlazorWebApp.Pages;
+namespace Assignment02.BlazorWebApp;
 
 public partial class AuthorList
 {
@@ -15,7 +15,7 @@ public partial class AuthorList
     private IEnumerable<Author> _iEnumAuthorInit;
     #endregion
 
-    #region [ Properties ]
+    #region [ Properties - Inject]
     [Inject]
     private NavigationManager Navigation { get; set; }
 
@@ -23,9 +23,14 @@ public partial class AuthorList
     private ISessionStorageService SessionStorage { get; set; }
 
     [Inject]
-    private HttpClientContext HttpClientContext { get; set; }
 
+    private HttpClientContext HttpClientContext { get; set; }
+    #endregion
+
+    #region [ Properties ]
     public IQueryable<Author> IQueAuthor { get; set; }
+    
+    public List<Author> ListAuthor { get; set; }
     private string Role { get; set; }
 
     public string SearchName {
@@ -39,18 +44,18 @@ public partial class AuthorList
 
     #region [ Methods - Override ]
     protected override async Task OnInitializedAsync() {
-        //try {
-        //    this.Role = await SessionStorage.GetItemAsStringAsync(AppRole.Role);
-        //} catch {
-        //    this.Role = string.Empty;
-        //}
-        //StateHasChanged();
+        try {
+            this.Role = await SessionStorage.GetItemAsStringAsync(AppRole.Role);
+        } catch {
+        }
+        StateHasChanged();
 
-        //if (!Role.IsNullOrEmpty()) {
-            this._iEnumAuthorInit = await this.HttpClientContext.Author.GetListAllAsync();
+        if (!string.IsNullOrEmpty(Role)) {
+            this._iEnumAuthorInit = (await this.HttpClientContext.Author.GetListIsNotDeletedAsync());
 
+            this.ListAuthor = _iEnumAuthorInit.ToList();
             this.IQueAuthor = this._iEnumAuthorInit.AsQueryable();
-        //}
+        }
         StateHasChanged();
     }
     #endregion

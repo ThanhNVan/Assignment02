@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http.Json;
+using System.Security.Policy;
 
 namespace Assignment02.HttpClientProviders;
 
@@ -66,6 +67,58 @@ public class UserHttpClientProvider : BaseEntityHttpClientProvider<User>, IUserH
             }
             return null;
 
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            throw;
+        }
+    }
+
+    public async Task<IEnumerable<User>> GetListByRoleIdAsync(string roleId) {
+        try {
+            var url = this._entityUrl + MethodUrl.GetListByRoleId + roleId;
+            var httpClient = this.CreateClient();
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode) {
+                var result = JsonConvert.DeserializeObject<IEnumerable<User>>(await response.Content.ReadAsStringAsync());
+                return result;
+            }
+            return null;
+
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            throw;
+        }
+    }
+
+    public async Task<IEnumerable<User>> GetListByPublisherIdAndRoleIdAsync(string publisherId, string roleId) {
+        try {
+            var url = this._entityUrl + MethodUrl.GetListByPublisherIdAndRoleId + publisherId + "&&" + roleId;
+            var httpClient = this.CreateClient();
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode) {
+                var result = JsonConvert.DeserializeObject<IEnumerable<User>>(await response.Content.ReadAsStringAsync());
+                return result;
+            }
+            return null;
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            throw;
+        }
+    }
+
+    public async Task<IEnumerable<User>> GetListByHiredDateRangeAsync(DateTimeRangeModel dateTimeRange) {
+        try {
+            var url = this._entityUrl + MethodUrl.GetListByHiredDateRange;
+            var httpClient = this.CreateClient();
+            var response = await httpClient.PostAsJsonAsync(url, dateTimeRange);
+
+            if (response.IsSuccessStatusCode) {
+                var result = JsonConvert.DeserializeObject<IEnumerable<User>>(await response.Content.ReadAsStringAsync());
+                return result;
+            }
+            return null;
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
             throw;

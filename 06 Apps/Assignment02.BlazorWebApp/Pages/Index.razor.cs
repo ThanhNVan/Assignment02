@@ -32,16 +32,24 @@ public partial class Index
             return;
         }
 
-        var isAdmin = await HttpClientContext.User.IsAdminLoginAsync(new LoginModel() {Email = Email, Password = Password});
+        var isAdmin = await HttpClientContext.User.IsAdminLoginAsync(new LoginModel() { Email = Email, Password = Password });
 
         if (isAdmin) {
             await SessionStorage.SetItemAsStringAsync(AppRole.Role, AppRole.Admin);
-            NavigationManager.NavigateTo("Books", true);
-            return;
-        } else {
-            this.Warning = "Invalid Input";
+            NavigationManager.NavigateTo("/Admin/Books", true);
             return;
         }
+
+        var dbUser = await this.HttpClientContext.User.LoginAsync(new LoginModel() { Email = Email, Password = Password });
+        if (dbUser == null) {
+            this.Warning = "Invalid, Please try again";
+            return;
+        }
+
+        await SessionStorage.SetItemAsStringAsync(AppRole.Role, AppRole.Member);
+        await SessionStorage.SetItemAsStringAsync(nameof(User.Id), dbUser.Id);
+        NavigationManager.NavigateTo("Books", true);
+        return;
     }
     #endregion
 
@@ -49,7 +57,7 @@ public partial class Index
     private bool CheckValidInput() {
         if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password)) {
             this.Warning = "Invalid Input";
-            return false;   
+            return false;
         }
         return true;
     }

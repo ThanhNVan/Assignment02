@@ -1,0 +1,59 @@
+﻿@page "/Admin/Authors"
+@using Assignment02.EntityProviders;
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+
+@namespace Assignment02.BlazorWebApp
+
+<PageTitle>Authors</PageTitle>
+<h3>Authors</h3>
+
+@if (IQueAuthor == null) {
+    <p><em>Loading...</em></p>
+} else {
+    @*    <FluentSearch type="text" placeholder="Search by name" @bind-Value=SearchName></FluentSearch>
+    <div class="d-grid">
+        <FluentDataGrid RowsData="@IQueAuthor">
+            <PropertyColumn Property="@(x => x.FirstName + " " + x.LastName)" Sortable="true" />
+        </FluentDataGrid>
+    </div>*@
+
+
+
+    <SfGrid DataSource="ListAuthor">
+       @* <GridPageSettings PageSizes="40"></GridPageSettings>*@
+        @*<GridFilterSettings Type="FilterType.Menu"></GridFilterSettings>
+    <GridPageSettings PageSize="40"></GridPageSettings>*@
+        <GridColumns>
+            <GridColumn Field=@nameof(Author.Id) Visible=false IsPrimaryKey="true" Width="300"></GridColumn>
+            <GridColumn HeaderText="Name" Type="ColumnType.String" Width="200">
+                <Template>
+                    @{
+                        var author = (context as Author);
+                        <div>
+                            <div class="empimg">
+
+                                <span class="e-userimg sf-icon-Male"></span>
+
+                            </div>
+                            <span>@(author.FirstName)</span>
+                        </div>
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@(nameof(Author.Email))" Width="200"></GridColumn>
+            <GridColumn Field="@(nameof(Author.Phone))" Width="200"></GridColumn>
+            <GridColumn Width="60">
+                <Template>
+                    @{
+                        var author = context as Author;
+                        <SfButton CssClass="e-inherit" IconCss="e-icons e-edit"></SfButton>
+                    }
+                </Template>
+            </GridColumn>
+        </GridColumns>
+    </SfGrid>
+
+
+
+}

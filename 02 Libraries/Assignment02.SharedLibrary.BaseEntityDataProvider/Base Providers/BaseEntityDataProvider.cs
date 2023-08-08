@@ -114,7 +114,7 @@ public abstract class BaseEntityDataProvider<TEntity, TContext> : IBaseEntityDat
         var result = default(IEnumerable<TEntity>);
         try {
             using (TContext context = GetContext()) {
-                result = await context.Set<TEntity>().AsNoTracking().ToListAsync();
+                result = await context.Set<TEntity>().AsNoTracking().OrderByDescending(x => x.IsDeleted).ToListAsync();
                 return result;
             }
         } catch (Exception ex) {
@@ -127,7 +127,7 @@ public abstract class BaseEntityDataProvider<TEntity, TContext> : IBaseEntityDat
         var result = default(IEnumerable<TEntity>);
         try {
             using (TContext context = GetContext()) {
-                result = await context.Set<TEntity>().AsNoTracking().Where(x => x.IsDeleted == true).ToListAsync();
+                result = await context.Set<TEntity>().AsNoTracking().Where(x => x.IsDeleted == true).OrderByDescending(x => x.LastUpdatedAt).ToListAsync();
                 return result;
             }
         } catch (Exception ex) {
@@ -139,7 +139,7 @@ public abstract class BaseEntityDataProvider<TEntity, TContext> : IBaseEntityDat
         var result = default(IEnumerable<TEntity>);
         try {
             using (TContext context = GetContext()) {
-                result = await context.Set<TEntity>().AsNoTracking().Where(x => x.IsDeleted == false).ToListAsync();
+                result = await context.Set<TEntity>().AsNoTracking().Where(x => x.IsDeleted == false).OrderByDescending(x => x.LastUpdatedAt).ToListAsync();
                 return result;
             }
         } catch (Exception ex) {
