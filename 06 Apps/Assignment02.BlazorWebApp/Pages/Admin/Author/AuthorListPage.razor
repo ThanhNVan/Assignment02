@@ -1,0 +1,65 @@
+﻿@page "/Admin/Authors"
+@using Assignment02.EntityProviders;
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+
+@namespace Assignment02.BlazorWebApp
+
+<PageTitle>Authors</PageTitle>
+<h3>Authors</h3>
+
+@if (AuthorIEnumerable == null) {
+    <p><em>Loading...</em></p>
+} else {
+
+    <SfGrid DataSource="AuthorIEnumerable" AllowSelection="true" AllowSorting="true" AllowFiltering="true" EnableVirtualization="true" EnableVirtualMaskRow="true"
+            Height="600">
+        <GridPageSettings PageSizes=true></GridPageSettings>
+        <GridFilterSettings Type="FilterType.Menu"></GridFilterSettings>
+        <GridColumns>
+            <GridColumn Field=@nameof(Author.Id) Visible=false IsPrimaryKey="true" Width="300"></GridColumn>
+            <GridColumn HeaderText="Name" Type="ColumnType.String" Width="200">
+                <Template>
+                    @{
+                        var author = (context as Author);
+                        <div>
+                            <span class="e-icons e-user"></span>
+                            <span>@(author.FirstName)</span>
+                        </div>
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@(nameof(Author.Email))" Width="200"></GridColumn>
+            <GridColumn Field="@(nameof(Author.Phone))" Width="150"></GridColumn>
+            <GridColumn Field="@(nameof(Author.IsDeleted))" Width="100" FilterSettings="@(new FilterSettings { Type = FilterType.CheckBox })">
+                <Template>
+                    @{
+                        var author = (context as Author);
+                        if (author.IsDeleted == true) {
+                            <div class="statustemp e-inactivecolor">
+                                <span class="statustxt e-inactivecolor">@author.IsDeleted</span>
+                            </div>
+                        } else {
+                            <div class="statustemp e-activecolor">
+                                <span class="statustxt e-activecolor">@author.IsDeleted</span>
+                            </div>
+                        }
+                    }
+                </Template>
+            </GridColumn>
+
+            <GridColumn Width="60">
+                <Template>
+                    @{
+                        var author = context as Author;
+                        <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="async () => await ViewDetailAsync(author.Id)"></SfButton>
+                        <SfButton CssClass="e-inherit" IconCss="e-icons e-trash" OnClick="async () => await DeleteAsync(author.Id)"></SfButton>
+                    }
+                </Template>
+            </GridColumn>
+        </GridColumns>
+    </SfGrid>
+
+
+
+}

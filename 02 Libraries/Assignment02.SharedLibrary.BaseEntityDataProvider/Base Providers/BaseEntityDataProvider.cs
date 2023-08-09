@@ -190,5 +190,9 @@ public abstract class BaseEntityDataProvider<TEntity, TContext> : IBaseEntityDat
     protected TContext GetContext() {
         return this._dbContextFactory.CreateDbContext();
     }
+
+    protected async Task<TContext> GetContextAsync() {
+        return await this._dbContextFactory.CreateDbContextAsync();
+    }
     #endregion
 }

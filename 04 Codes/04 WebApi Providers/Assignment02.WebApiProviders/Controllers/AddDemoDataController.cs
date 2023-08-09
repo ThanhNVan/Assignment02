@@ -11,6 +11,7 @@ public class AddDemoDataController : ControllerBase
 {
 	#region [ Fields ]
 	private readonly IDbContextFactory<AppDbContext> _dbContext;
+	private readonly DataContext _dataContext;
 	#endregion
 
 	#region [ Properties ]
@@ -23,8 +24,10 @@ public class AddDemoDataController : ControllerBase
 	#endregion
 
 	#region [ CTor ]
-	public AddDemoDataController(IDbContextFactory<AppDbContext> dbContext) {
+	public AddDemoDataController(IDbContextFactory<AppDbContext> dbContext,
+                                DataContext dataContext) {
         _dbContext = dbContext;	
+		_dataContext = dataContext;
 		AuthorList = new List<Author>();
 		BookAuthorList = new List<BookAuthor>();
 		BookList = new List<Book>();
@@ -37,7 +40,7 @@ public class AddDemoDataController : ControllerBase
 	#endregion
 
 	#region [ Public Methods - AddDemoDataAsync ]
-	[HttpGet]
+	//[HttpGet]
 	public async Task<IActionResult> AddDemoDataAsync() {
 		try {
 
@@ -69,6 +72,18 @@ public class AddDemoDataController : ControllerBase
 		}
 	}
 	#endregion
+
+	//[HttpGet("/{authorId}")]
+	public async Task<IActionResult> Get(string authorId) {
+		try {
+			var result = await _dataContext.Book.GetListByAuthorIdAsync(authorId);
+			var aa = result;
+			return Ok(result);
+        } catch (Exception) {
+
+			throw;
+		}
+	}
 
 	#region [ Private Methods - Seed Data ]
 	private void LoadAddData() {

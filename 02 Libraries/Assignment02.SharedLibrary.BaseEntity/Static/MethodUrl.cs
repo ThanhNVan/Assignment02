@@ -5,7 +5,7 @@ public static class MethodUrl
     #region [ Properties ]
     public static string Add = "/Add/";
 
-    public static string GetSingleById = "/SingleById/";
+    public static string GetSingleById = "/GetSingleById/";
 
     public static string Update = "/Update/";
 
@@ -38,5 +38,7 @@ public static class MethodUrl
     public static string GetListByPublisherIdAndRoleId = "/GetListByPublisherIdAndRoleId/";
 
     public static string GetListByHiredDateRange = "/GetListByHiredDateRange/";
+
+    public static string GetListByAuthorId = "/GetListByAuthorId/";
     #endregion
 }

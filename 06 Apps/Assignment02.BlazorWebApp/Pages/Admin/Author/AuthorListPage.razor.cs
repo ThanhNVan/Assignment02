@@ -3,16 +3,14 @@ using Assignment02.HttpClientProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Assignment02.BlazorWebApp;
 
-public partial class AuthorList
+public partial class AuthorListPage
 {
     #region [ Fields ]
     private string _searchName;
-    private IEnumerable<Author> _iEnumAuthorInit;
     #endregion
 
     #region [ Properties - Inject]
@@ -23,14 +21,12 @@ public partial class AuthorList
     private ISessionStorageService SessionStorage { get; set; }
 
     [Inject]
-
     private HttpClientContext HttpClientContext { get; set; }
     #endregion
 
     #region [ Properties ]
-    public IQueryable<Author> IQueAuthor { get; set; }
+    public IEnumerable<Author> AuthorIEnumerable { get; set; }
     
-    public List<Author> ListAuthor { get; set; }
     private string Role { get; set; }
 
     public string SearchName {
@@ -51,12 +47,19 @@ public partial class AuthorList
         StateHasChanged();
 
         if (!string.IsNullOrEmpty(Role)) {
-            this._iEnumAuthorInit = (await this.HttpClientContext.Author.GetListIsNotDeletedAsync());
-
-            this.ListAuthor = _iEnumAuthorInit.ToList();
-            this.IQueAuthor = this._iEnumAuthorInit.AsQueryable();
+            this.AuthorIEnumerable = await this.HttpClientContext.Author.GetListAllAsync();
         }
         StateHasChanged();
+    }
+    #endregion
+
+    #region [ Private Methods -  ]
+    private async Task DeleteAsync(string authorId) {
+        var aa = authorId;
+    }
+    
+    private async Task ViewDetailAsync(string authorId) {
+        this.Navigation.NavigateTo($"/Admin/Authors/Details/{authorId}");
     }
     #endregion
 }

@@ -32,7 +32,9 @@ public partial class Index
             return;
         }
 
-        var isAdmin = await HttpClientContext.User.IsAdminLoginAsync(new LoginModel() { Email = Email, Password = Password });
+        var loginModel = new LoginModel(Email, Password);
+
+        var isAdmin = await HttpClientContext.User.IsAdminLoginAsync(loginModel);
 
         if (isAdmin) {
             await SessionStorage.SetItemAsStringAsync(AppRole.Role, AppRole.Admin);
@@ -40,7 +42,7 @@ public partial class Index
             return;
         }
 
-        var dbUser = await this.HttpClientContext.User.LoginAsync(new LoginModel() { Email = Email, Password = Password });
+        var dbUser = await this.HttpClientContext.User.LoginAsync(loginModel);
         if (dbUser == null) {
             this.Warning = "Invalid, Please try again";
             return;

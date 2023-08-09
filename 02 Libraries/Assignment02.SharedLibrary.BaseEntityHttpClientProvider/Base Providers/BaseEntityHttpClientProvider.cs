@@ -48,13 +48,14 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
 
     public virtual async Task<TEntity> GetSingleByIdAsync(string id) {
         try {
-            var url = this._entityUrl + MethodUrl.GetSingleById;
+            var url = this._entityUrl + MethodUrl.GetSingleById + id;
 
             var httpClient = this.CreateClient();
 
             var response = await httpClient.GetAsync(url);
+
             if (response.IsSuccessStatusCode) {
-                var result = JsonConvert.DeserializeObject<TEntity>(await response.Content.ReadAsStringAsync());
+                var result = JsonConvert.DeserializeObject<TEntity>( await response.Content.ReadAsStringAsync());
                 return result;
             }
 
@@ -126,9 +127,14 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
 
             var httpClient = this.CreateClient();
 
-            var response = await httpClient.GetFromJsonAsync<IEnumerable<TEntity>>(url);
+            var response = await httpClient.GetAsync(url);
 
-            return response;
+            if (response.IsSuccessStatusCode) {
+                var result = JsonConvert.DeserializeObject<IEnumerable<TEntity>>(await response.Content.ReadAsStringAsync());
+                return result;
+            }
+
+            return null;
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
             throw;
@@ -141,9 +147,14 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
 
             var httpClient = this.CreateClient();
 
-            var response = await httpClient.GetFromJsonAsync<IEnumerable<TEntity>>(url);
+            var response = await httpClient.GetAsync(url);
 
-            return response;
+            if (response.IsSuccessStatusCode) {
+                var result = JsonConvert.DeserializeObject<IEnumerable<TEntity>>(await response.Content.ReadAsStringAsync());
+                return result;
+            }
+
+            return null;
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
             throw;
@@ -156,9 +167,14 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
 
             var httpClient = this.CreateClient();
 
-            var response = await httpClient.GetFromJsonAsync<IEnumerable<TEntity>>(url);
+            var response = await httpClient.GetAsync(url);
 
-            return response;
+            if (response.IsSuccessStatusCode) {
+                var result = JsonConvert.DeserializeObject<IEnumerable<TEntity>>(await response.Content.ReadAsStringAsync());
+                return result;
+            }
+
+            return null;
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
             throw;

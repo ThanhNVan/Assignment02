@@ -12,4 +12,24 @@ public class BookDataProvider : BaseEntityDataProvider<Book, AppDbContext>, IBoo
                             IDbContextFactory<AppDbContext> dbContextFactory) : base(logger, dbContextFactory) {
     }
     #endregion
+
+    #region [ Methods - List ]
+    public async Task<IEnumerable<Book>> GetListByAuthorIdAsync(string authorId) {
+        var result = default(IEnumerable<Book>);
+
+        try {
+            using (var context = await this.GetContextAsync()) {
+                result= await (from book in context.Books.AsNoTracking()
+                                 join bookAuthor in context.BookAuthors.AsNoTracking() on book.Id equals bookAuthor.BookId
+                                 where bookAuthor.AuthorId == authorId
+                                 select book).ToListAsync();
+            }
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return null;
+        }
+
+        return result;
+    }
+    #endregion
 }
