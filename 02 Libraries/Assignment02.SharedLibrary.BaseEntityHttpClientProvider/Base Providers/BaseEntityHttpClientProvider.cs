@@ -72,7 +72,7 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
 
             var httpClient = this.CreateClient();
 
-            var response = await httpClient.PostAsJsonAsync(url, entity);
+            var response = await httpClient.PutAsJsonAsync(url, entity);
 
             if(response.IsSuccessStatusCode) {
                 return true;

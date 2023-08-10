@@ -17,4 +17,14 @@ public class AuthorLogicProvider : BaseEntityLogicProvider<Author, IAuthorDataPr
                         IAuthorDataProvider dataProvider) : base(logger, dataProvider) {
     }
     #endregion
+
+    #region [ Methods - List ]
+    public async Task<IEnumerable<Author>> GetListByBookIdAsync(string bookId) {
+        if (string.IsNullOrEmpty(bookId)) {
+            return null;
+        }
+
+        return await this._dataProvider.GetListByBookIdAsync(bookId);
+    }
+    #endregion
 }

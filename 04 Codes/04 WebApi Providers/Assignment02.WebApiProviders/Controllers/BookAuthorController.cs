@@ -7,16 +7,10 @@ namespace Assignment02.WebApiProviders;
 
 public class BookAuthorController : BaseEntityWebApiProvider<BookAuthor, IBookAuthorLogicProvider>
 {
-    #region [ Fields ]
-    private readonly LogicContext _logicContext;
-
-    #endregion
-
     #region [ CTor ]
     public BookAuthorController(ILogger<BaseEntityWebApiProvider<BookAuthor, IBookAuthorLogicProvider>> logger,
                                     IBookAuthorLogicProvider logicProvider,
-                                    LogicContext logicContext) : base(logger, logicProvider) {
-        this._logicContext = logicContext;
+                                    LogicContext logicContext) : base(logger, logicProvider, logicContext) {
     }
     #endregion
 }

@@ -18,7 +18,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Data\" />
-	  <Folder Include="Pages\Admin\Book\" />
 	  <Folder Include="Pages\Admin\BookAuthor\" />
 	  <Folder Include="Pages\Admin\Role\" />
 	  <Folder Include="Pages\Admin\User\" />

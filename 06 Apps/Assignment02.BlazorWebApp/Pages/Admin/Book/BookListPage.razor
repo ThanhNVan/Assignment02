@@ -1,0 +1,43 @@
+﻿@page "/Admin/Books"
+@using Assignment02.EntityProviders;
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+
+@namespace Assignment02.BlazorWebApp
+
+<PageTitle>Books</PageTitle>
+<h3>Books</h3>
+
+@if (BookIEnumerable == null) {
+    <p><em>Loading...</em></p>
+} else {
+    <SfGrid DataSource="BookIEnumerable" AllowSelection="true" AllowSorting="true" AllowFiltering="true" EnableVirtualization="true" EnableVirtualMaskRow="true"
+            Height="600">
+        <GridPageSettings PageSizes=true></GridPageSettings>
+        <GridFilterSettings Type="FilterType.Menu"></GridFilterSettings>
+
+        <GridColumns>
+            <GridColumn Field=@nameof(Book.Title) ></GridColumn>
+            <GridColumn Field=@nameof(Book.Type) ></GridColumn>
+            <GridColumn Field=@nameof(Book.Price) ></GridColumn>
+            <GridColumn Field=@nameof(Book.Sales) ></GridColumn>
+            <GridColumn Field=@nameof(Book.PublishedDate) >
+                <Template>
+                    @{
+                        var book = context as Book;
+                        <span>@(book.PublishedDate.ToString("MMM dd, yyyy"))</span>
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Field=@nameof(Book.IsDeleted)></GridColumn>
+            <GridColumn TextAlign="TextAlign.Right">
+                <Template>
+                    @{
+                        var book = context as Book;
+                        <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="() => ViewDetail(book.Id)"></SfButton>
+                    }
+                </Template>
+            </GridColumn>
+        </GridColumns>
+    </SfGrid>
+}

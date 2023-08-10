@@ -5,4 +5,7 @@ namespace Assignment02.HttpClientProviders;
 
 public interface IAuthorHttpClientProvider : IBaseEntityHttpClientProvider<Author>
 {
+    #region [ Methods - List ]
+    Task<IEnumerable<Author>> GetListByBookIdAsync(string bookId);    
+    #endregion
 }

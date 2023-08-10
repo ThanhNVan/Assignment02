@@ -2,8 +2,135 @@
 @using Assignment02.EntityProviders;
 @using Syncfusion.Blazor.Grids
 @using Syncfusion.Blazor.Buttons
-
+@using Syncfusion.Blazor.Inputs
 @namespace Assignment02.BlazorWebApp
 
-<PageTitle>Authors</PageTitle>
-<h3>Author Detail</h3>
+
+@if (string.IsNullOrEmpty(Role)) {
+    <Unauthorized></Unauthorized>
+} else if (Role == AppRole.Admin) {
+    <PageTitle>Authors</PageTitle>
+    <h3>Author Detail</h3>
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Email Address:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Email" @bind-Value=Author.Email CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                First Name:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=Author.FirstName CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Last Name:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=Author.LastName CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Phone Number:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Tel" @bind-Value=Author.Phone CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Address:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=Author.Address CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                City:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=Author.City CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                State:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=Author.State CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Zip:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=Author.Zip CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Is Deleted:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" Value=@Author.IsDeleted.ToString() CssClass="e-small" Width="100" Readonly=true></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                <SfButton @onclick="async () => await UpdateAsync()">Update</SfButton>
+            </dt>
+            <br />
+            <dd class="col-sm-4">
+                <SfButton @onclick="async () => await CancelAsync()">Cancel</SfButton>
+            </dd>
+            @if (Author.IsDeleted) {
+                <dt class="col-sm-2">
+                    <SfButton @onclick="async () => await RecoverAsync()">Recover</SfButton>
+                </dt>
+
+            } else {
+                <dt class="col-sm-2">
+                    <SfButton @onclick="async () => await SoftDeleteAsync()">Delete</SfButton>
+                </dt>
+            }
+        </dl>
+    </div>
+    <br />
+    <h3>Author's Books </h3>
+    <div>
+        <SfGrid DataSource="Books" AllowSelection="true" AllowSorting="true" AllowFiltering="true" EnableVirtualization="true" EnableVirtualMaskRow="true" Height="400">
+            <GridPageSettings PageSizes=true></GridPageSettings>
+            <GridFilterSettings Type="FilterType.Menu"></GridFilterSettings>
+            <GridColumns>
+                <GridColumn Field="@nameof(Book.Title)"></GridColumn>
+                <GridColumn Field="@nameof(Book.Type)"></GridColumn>
+                <GridColumn Field="@nameof(Book.Price)"></GridColumn>
+                <GridColumn Field="@nameof(Book.Sales)"></GridColumn>
+                <GridColumn HeaderText="Publisher" AllowSorting=true AllowFiltering=true AllowGrouping=true AllowReordering=true AllowSearching=true>
+                    <Template>
+                        @{
+                            var book = context as Book;
+                            <span>@(book.Publisher.Name)</span>
+                        }
+                    </Template>
+                </GridColumn>
+                <GridColumn Field="@nameof(Book.PublishedDate)" HeaderText="Published Date" AllowSorting=true AllowFiltering=true AllowGrouping=true AllowReordering=true AllowSearching=true>
+                    <Template>
+                        @{
+                            var book = context as Book;
+                            <span>@(book.PublishedDate.ToString("MMM dd, yyyy"))</span>
+                        }
+                    </Template>
+                </GridColumn>
+                <GridColumn TextAlign="TextAlign.Right">
+                    <Template>
+                        @{
+                            var book = context as Book;
+                            <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="() => ViewDetail(book.Id)"></SfButton>
+                        }
+                    </Template>
+                </GridColumn>
+            </GridColumns>
+        </SfGrid>
+    </div>
+}

@@ -5,4 +5,7 @@ namespace Assignment02.LogicProviders;
 
 public interface IAuthorLogicProvider : IBaseEntityLogicProvider<Author>
 {
+    #region [ Methods - List ]
+    Task<IEnumerable<Author>> GetListByBookIdAsync(string bookId);
+    #endregion
 }

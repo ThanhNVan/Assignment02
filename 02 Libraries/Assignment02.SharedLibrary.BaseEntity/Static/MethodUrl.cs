@@ -40,5 +40,7 @@ public static class MethodUrl
     public static string GetListByHiredDateRange = "/GetListByHiredDateRange/";
 
     public static string GetListByAuthorId = "/GetListByAuthorId/";
+
+    public static string GetListByBookId = "/GetListByBookId/";
     #endregion
 }

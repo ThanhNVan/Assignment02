@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\04 Codes\03 Logic Providers\Assignment02.LogicProviders\Assignment02.LogicProviders.csproj" />
     <ProjectReference Include="..\Assignment02.SharedLibrary.BaseEntityLogicProviders\Assignment02.SharedLibrary.BaseEntityLogicProvider.csproj" />
   </ItemGroup>
 

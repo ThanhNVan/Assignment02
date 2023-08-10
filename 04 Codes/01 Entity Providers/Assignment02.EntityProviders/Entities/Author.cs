@@ -48,7 +48,7 @@ public class Author : BaseEntity
     #region [ Virtual Entity FK Properties ]
     [JsonIgnore]
     [InverseProperty("Author")]
-    public virtual ICollection<BookAuthor> BookAuthor { get; set; }
+    public virtual ICollection<BookAuthor>? BookAuthor { get; set; }
     #endregion
 
     #region [ CTor ]

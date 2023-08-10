@@ -7,15 +7,10 @@ namespace Assignment02.WebApiProviders;
 
 public class RoleController : BaseEntityWebApiProvider<Role, IRoleLogicProvider>
 {
-    #region [ Fields ]
-    private readonly LogicContext _logicContext;
-    #endregion
-
     #region [ CTor ]
     public RoleController(ILogger<BaseEntityWebApiProvider<Role, IRoleLogicProvider>> logger, 
                             IRoleLogicProvider logicProvider,
-                            LogicContext logicContext) : base(logger, logicProvider) {
-        this._logicContext = logicContext;
+                            LogicContext logicContext) : base(logger, logicProvider, logicContext) {
     }
     #endregion
 }

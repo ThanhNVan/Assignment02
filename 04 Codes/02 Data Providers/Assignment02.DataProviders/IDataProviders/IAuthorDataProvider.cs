@@ -5,4 +5,7 @@ namespace Assignment02.DataProviders;
 
 public interface IAuthorDataProvider : IBaseEntityDataProvider<Author>
 {
+    #region [ Methods -  ]
+    Task<IEnumerable<Author>> GetListByBookIdAsync(string bookId);
+    #endregion
 }

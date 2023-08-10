@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Assignment02.LogicProviders;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,19 +12,21 @@ namespace Assignment02.SharedLibrary;
 [Route("Api/V1/[controller]")]
 public abstract class BaseEntityWebApiProvider<TEntity, TLogicProvider> : ControllerBase
     where TEntity : BaseEntity
-    where TLogicProvider : IBaseEntityLogicProvider<TEntity> {
+    where TLogicProvider : IBaseEntityLogicProvider<TEntity> 
+{
     #region [ Fields ]
     protected readonly ILogger<BaseEntityWebApiProvider<TEntity, TLogicProvider>> _logger;
-    protected readonly IBaseEntityLogicProvider<TEntity> _logicProvider;
+    protected readonly TLogicProvider _logicProvider;
+    protected readonly LogicContext _logicContext;
     #endregion
 
     #region [ CTor ]
     public BaseEntityWebApiProvider(ILogger<BaseEntityWebApiProvider<TEntity, TLogicProvider>> logger,
-        TLogicProvider logicProvider) {
+        TLogicProvider logicProvider, LogicContext logicContext) {
 
         this._logger = logger;
         this._logicProvider = logicProvider;
-
+        this._logicContext = logicContext;
     }
     #endregion
 
@@ -127,8 +130,8 @@ public abstract class BaseEntityWebApiProvider<TEntity, TLogicProvider> : Contro
         }
     }
 
-    [HttpPut(nameof(MethodUrl.Recover) + "/{id}")]
-    public virtual async Task<IActionResult> RecoverAsync(string id) {
+    [HttpPut(nameof(MethodUrl.Recover))]
+    public virtual async Task<IActionResult> RecoverAsync([FromBody] string id) {
         try {
             var dbEntity = await this._logicProvider.GetSingleByIdAsync(id);
 

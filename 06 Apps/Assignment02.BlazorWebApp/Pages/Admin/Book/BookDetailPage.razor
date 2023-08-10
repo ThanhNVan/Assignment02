@@ -1,0 +1,19 @@
+﻿@page "/Admin/Books/Details/{BookId}"
+@using Assignment02.EntityProviders;
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Inputs
+
+@namespace Assignment02.BlazorWebApp
+
+
+
+@if (string.IsNullOrEmpty(Role)) {
+    <PageTitle>Unauthorized</PageTitle>
+    <Unauthorized></Unauthorized>
+} else if (Book == null) {
+    <p><em>Loading...</em></p>
+} else {
+    <PageTitle>Books</PageTitle>
+    <h3>Book Page</h3>
+}
