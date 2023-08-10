@@ -3,6 +3,8 @@
 @using Syncfusion.Blazor.Grids
 @using Syncfusion.Blazor.Buttons
 @using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Calendars
+@using Syncfusion.Blazor.DropDowns
 
 @namespace Assignment02.BlazorWebApp
 
@@ -11,9 +13,92 @@
 @if (string.IsNullOrEmpty(Role)) {
     <PageTitle>Unauthorized</PageTitle>
     <Unauthorized></Unauthorized>
-} else if (Book == null) {
+} else if (SelectedBook == null) {
     <p><em>Loading...</em></p>
 } else {
     <PageTitle>Books</PageTitle>
-    <h3>Book Page</h3>
+    <h4>Book Details</h4>
+    <div class="col-lg-12">
+        <EditForm Model="@SelectedBook">
+
+            <div style="padding-top: 20px;">
+                <div class="form-group col-md-6">
+                    <SfTextBox Type="InputType.Email" @bind-Value=SelectedBook.Title CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Title"></SfTextBox>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <SfTextBox ID="Type" Type="InputType.Text" @bind-Value=SelectedBook.Type CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Type"></SfTextBox>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <SfNumericTextBox ID="Price" @bind-Value=SelectedBook.Price CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Price"></SfNumericTextBox>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <SfTextBox ID="Advance" Type="InputType.Text" @bind-Value=SelectedBook.Advance CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Advance"></SfTextBox>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <SfTextBox ID="Royalty" Type="InputType.Text" @bind-Value=SelectedBook.Royalty CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Royalty"></SfTextBox>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <SfNumericTextBox ID="Sales" @bind-Value=SelectedBook.Sales CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Sales"></SfNumericTextBox>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <SfTextBox ID="Note" Type="InputType.Text" @bind-Value=SelectedBook.Note CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Note"></SfTextBox>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <SfDatePicker ID="PublishedDate" Type="InputType.Text" @bind-Value=SelectedBook.PublishedDate CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Published Date"></SfDatePicker>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <SfTextBox Type="InputType.Text" @bind-Value=SelectedBook.Publisher.Name CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Publisher"></SfTextBox>
+                    <SfButton></SfButton>
+
+                </div>
+                <br />
+                <span>Author</span>
+                @foreach (var item in SelectedAuthors) {
+                    <div class="form-group col-md-6">
+                        <SfDropDownList @bind-Value=@(item.Id) AllowFiltering="true" DataSource="@AllAuthors" TValue="string" TItem="Author" FloatLabelType="FloatLabelType.Always">
+                            <DropDownListTemplates TItem="Author">
+                                <ItemTemplate Context="child_context">
+                                    @{
+                                        var dropDownItem = child_context as Author;
+                                        <div>
+                                            <span>  @(dropDownItem.FirstName + " " + dropDownItem.LastName )</span>
+                                        </div>
+                                    }
+                                </ItemTemplate>
+
+                                <ValueTemplate Context="child_context">
+                                    @{
+                                        var dropDownItem = child_context as Author;
+                                        <div>
+                                            <span>@(dropDownItem.FirstName + " " + dropDownItem.LastName)</span>
+                                        </div>
+                                    }
+                                </ValueTemplate>
+                            </DropDownListTemplates>
+                            <DropDownListFieldSettings Value="FirstName" Text="LastName">
+
+                            </DropDownListFieldSettings>
+                        </SfDropDownList>
+                    </div>
+                }
+            </div>
+        </EditForm>
+        <div class="temp">
+            <br />
+            <div class="col-xs-12 col-sm-12 col-lg-6 col-md-6">
+                <SfButton @onclick="async () => await CancelAsync()" CssClass="e-warning">Cancel</SfButton>
+                <SfButton @onclick="async () => await SaveAsync()">Save</SfButton>
+            </div>
+        </div>
+        <div class="temp">
+        </div>
+    </div>
 }

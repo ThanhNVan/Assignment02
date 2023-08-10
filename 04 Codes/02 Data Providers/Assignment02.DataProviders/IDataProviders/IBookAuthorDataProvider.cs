@@ -5,4 +5,7 @@ namespace Assignment02.DataProviders;
 
 public interface IBookAuthorDataProvider : IBaseEntityDataProvider<BookAuthor>
 {
+    #region [ Methods - Single ]
+    Task<BookAuthor> GetSingleByIndexAsync(UpdateBookAuthorModel model);
+    #endregion
 }

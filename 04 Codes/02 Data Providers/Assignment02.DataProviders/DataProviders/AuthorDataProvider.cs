@@ -20,7 +20,7 @@ public class AuthorDataProvider : BaseEntityDataProvider<Author, AppDbContext>, 
             using var context = await this.GetContextAsync();
             result = await (from author in context.Authors.AsNoTracking()
                             join bookAuthor in context.BookAuthors.AsNoTracking() on author.Id equals bookAuthor.AuthorId
-                            where bookAuthor.BookId == bookId
+                            where bookAuthor.BookId == bookId && bookAuthor.IsDeleted == false
                             select author).ToListAsync();
             return result;
         } catch(Exception ex) {

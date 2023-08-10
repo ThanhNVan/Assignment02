@@ -56,4 +56,8 @@ public class Author : BaseEntity
 
     }
     #endregion
+
+    public override string ToString() {
+        return this.FirstName + " " + this.LastName; 
+    }
 }

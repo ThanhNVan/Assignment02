@@ -30,9 +30,11 @@ public partial class BookDetailPage
     #region [ Properties ]
     private string Role { get; set; }
 
-    private Book Book { get; set; }
+    private Book SelectedBook { get; set; }
 
-    private IEnumerable<Author> Authors { get; set; }
+    private IEnumerable<Author> SelectedAuthors { get; set; }
+
+    private IEnumerable<Author> AllAuthors { get; set; }
     #endregion
 
     #region [ Methods - Override ]
@@ -44,9 +46,11 @@ public partial class BookDetailPage
 
         if (!string.IsNullOrEmpty(Role)) {
             this._book = await this.HttpClientContext.Book.GetSingleByIdAsync(this.BookId);
-            this.Authors = await this.HttpClientContext.Author.GetListByBookIdAsync(this.BookId);
+            this._book.Publisher = await this.HttpClientContext.Publisher.GetSingleByIdAsync(this._book.PublisherId);
+            this.SelectedAuthors = await this.HttpClientContext.Author.GetListByBookIdAsync(this.BookId);
+            this.AllAuthors = await this.HttpClientContext.Author.GetListIsNotDeletedAsync();
             //await this.GetPublisherAsync(this.Books);
-            this.Book = this._book;
+            this.SelectedBook = this._book;
         }
         StateHasChanged();
 
@@ -60,5 +64,8 @@ public partial class BookDetailPage
         await this.OnInitializedAsync();
     }
 
+    private async Task SaveAsync() {
+        var aa = 1;
+    }
     #endregion
 }
