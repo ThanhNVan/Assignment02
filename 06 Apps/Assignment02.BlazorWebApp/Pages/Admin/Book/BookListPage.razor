@@ -11,11 +11,9 @@
 @if (BookIEnumerable == null) {
     <p><em>Loading...</em></p>
 } else {
-    <SfGrid DataSource="BookIEnumerable" AllowSelection="true" AllowSorting="true" AllowFiltering="true" EnableVirtualization="true" EnableVirtualMaskRow="true"
+    <SfGrid DataSource="BookIEnumerable" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" 
             Height="600">
-        <GridPageSettings PageSizes=true></GridPageSettings>
-        <GridFilterSettings Type="FilterType.Menu"></GridFilterSettings>
-
+        <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>
         <GridColumns>
             <GridColumn Field=@nameof(Book.Title) ></GridColumn>
             <GridColumn Field=@nameof(Book.Type) ></GridColumn>

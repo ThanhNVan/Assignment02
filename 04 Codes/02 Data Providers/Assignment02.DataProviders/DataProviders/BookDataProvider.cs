@@ -32,4 +32,5 @@ public class BookDataProvider : BaseEntityDataProvider<Book, AppDbContext>, IBoo
         return result;
     }
     #endregion
+
 }

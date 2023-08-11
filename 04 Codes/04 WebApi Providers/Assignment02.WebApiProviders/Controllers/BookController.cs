@@ -34,4 +34,23 @@ public class BookController : BaseEntityWebApiProvider<Book, IBookLogicProvider>
         }
     }
     #endregion
+
+    #region [ Methods - Update ]
+    [HttpPut(nameof(MethodUrl.UpdateBookAndAuthor))]
+    public async Task<IActionResult> UpdateBookAndAuthorAsync([FromBody] UpdateBookAndAuthorModel model) {
+        try {
+            var result = await this._logicProvider.UpdateBookAndAuthorAsync(model);
+            if (result) {
+                return Ok();
+            }
+            return BadRequest("Not Good");
+        } catch (ArgumentNullException ex) {
+            this._logger.LogError(ex.Message);
+            return BadRequest();
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+        }
+    }
+    #endregion
 }

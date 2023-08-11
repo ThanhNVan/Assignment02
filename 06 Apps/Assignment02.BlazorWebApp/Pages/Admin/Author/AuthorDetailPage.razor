@@ -98,9 +98,8 @@
     <br />
     <h3>Author's Books </h3>
     <div>
-        <SfGrid DataSource="Books" AllowSelection="true" AllowSorting="true" AllowFiltering="true" EnableVirtualization="true" EnableVirtualMaskRow="true" Height="400">
-            <GridPageSettings PageSizes=true></GridPageSettings>
-            <GridFilterSettings Type="FilterType.Menu"></GridFilterSettings>
+        <SfGrid DataSource="Books" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" EnableVirtualization="true" EnableVirtualMaskRow="true" Height="400">
+            <GridPageSettings PageSizes=true PageCount="5"></GridPageSettings>
             <GridColumns>
                 <GridColumn Field="@nameof(Book.Title)"></GridColumn>
                 <GridColumn Field="@nameof(Book.Type)"></GridColumn>

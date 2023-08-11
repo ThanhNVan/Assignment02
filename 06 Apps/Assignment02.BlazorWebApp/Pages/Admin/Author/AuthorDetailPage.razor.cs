@@ -46,7 +46,9 @@ public partial class AuthorDetailPage
         if (!string.IsNullOrEmpty(Role)) {
             this._author = await this.HttpClientContext.Author.GetSingleByIdAsync(this.AuthorId);
             this.Books = await this.HttpClientContext.Book.GetListByAuthorIdAsync(this.AuthorId);
-            await this.GetPublisherAsync(this.Books);
+            if (Books != null) {
+                await this.GetPublisherAsync(this.Books);
+            }
             this.Author = this._author;
         }
         StateHasChanged();

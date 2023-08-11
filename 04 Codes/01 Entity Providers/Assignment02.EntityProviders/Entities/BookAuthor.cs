@@ -20,10 +20,10 @@ public class BookAuthor : BaseEntity
     public string BookId { get; set; }
 
     [DataType(DataType.Text)]
-    public string AuthorOrder { get; set; }
+    public string? AuthorOrder { get; set; }
 
     [DataType(DataType.Text)]
-    public string RoyalityPercentage { get; set; }
+    public string? RoyalityPercentage { get; set; }
     #endregion
 
     #region [ Virtual FK Properties ]

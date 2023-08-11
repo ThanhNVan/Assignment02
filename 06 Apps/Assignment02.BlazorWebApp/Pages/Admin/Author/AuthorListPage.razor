@@ -12,10 +12,9 @@
     <p><em>Loading...</em></p>
 } else {
 
-    <SfGrid DataSource="AuthorIEnumerable" AllowSelection="true" AllowSorting="true" AllowFiltering="true" EnableVirtualization="true" EnableVirtualMaskRow="true"
+    <SfGrid DataSource="AuthorIEnumerable" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" EnableVirtualization="true" EnableVirtualMaskRow="true"
             Height="600">
-        <GridPageSettings PageSizes=true></GridPageSettings>
-        <GridFilterSettings Type="FilterType.Menu"></GridFilterSettings>
+        <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>
         <GridColumns>
             <GridColumn Field=@nameof(Author.Id) Visible=false IsPrimaryKey="true" Width="300"></GridColumn>
             <GridColumn HeaderText="Name" Type="ColumnType.String" Width="200">

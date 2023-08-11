@@ -5,6 +5,10 @@ namespace Assignment02.LogicProviders;
 
 public interface IBookAuthorLogicProvider : IBaseEntityLogicProvider<BookAuthor>
 {
+    #region [ Methods - Single ]
+    Task<BookAuthor> GetSingleByIndexAsync(BookAuthorModel model);
+    #endregion
+
     #region [ Methods - Update ]
     Task<bool> UpdateBookAuthorAsync(UpdateBookAuthorModel model);
     #endregion

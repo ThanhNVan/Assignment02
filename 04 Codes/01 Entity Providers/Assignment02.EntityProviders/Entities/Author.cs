@@ -30,19 +30,19 @@ public class Author : BaseEntity
 
 
     [DataType(DataType.Text)]
-    public string Address { get; set; }
+    public string? Address { get; set; }
 
 
     [DataType(DataType.Text)]
-    public string City { get; set; }
+    public string? City { get; set; }
 
 
     [DataType(DataType.Text)]
-    public string State { get; set; }
+    public string? State { get; set; }
 
 
     [DataType(DataType.PostalCode)]
-    public string Zip { get; set; }
+    public string? Zip { get; set; }
     #endregion
 
     #region [ Virtual Entity FK Properties ]

@@ -13,25 +13,8 @@ public class BookAuthorLogicProvider : BaseEntityLogicProvider<BookAuthor, IBook
     }
     #endregion
 
-    #region [ Methods - Update ]
-    public async Task<bool> UpdateBookAuthorAsync(UpdateBookAuthorModel model) {
-        var dbResult = await this.GetSingleByIndexAsync(model);
-        if (dbResult == null) {
-            var bookAuthor = new BookAuthor();
-            bookAuthor.AuthorId = model.AuthorId;
-            bookAuthor.BookId = model.BookId;
-            return await this.AddAsync(bookAuthor);
-        }
-        if (dbResult.IsDeleted == true) {
-            return await this.RecoverAsync(dbResult.Id);
-        }
-
-        return false;
-    }
-    #endregion
-
     #region [ Methods - Single ]
-    public async Task<BookAuthor> GetSingleByIndexAsync(UpdateBookAuthorModel model) {
+    public async Task<BookAuthor> GetSingleByIndexAsync(BookAuthorModel model) {
         if (model == null) {
             return null;
         }
@@ -40,6 +23,58 @@ public class BookAuthorLogicProvider : BaseEntityLogicProvider<BookAuthor, IBook
         }
 
         return await this._dataProvider.GetSingleByIndexAsync(model);
+    }
+    #endregion
+
+    #region [ Methods - List ]
+    public async Task<IEnumerable<BookAuthor>> GetListByBookIdAsync(string bookId) {
+        if (string.IsNullOrEmpty(bookId)) {
+            return null;
+        }
+
+        return await this._dataProvider.GetListByBookIdAsync(bookId);
+    }
+    #endregion
+
+    #region [ Methods - Update ]
+    public async Task<bool> UpdateBookAuthorAsync(UpdateBookAuthorModel model) {
+        if (model == null || model.AuthorIds == null || string.IsNullOrEmpty(model.BookId)) {
+            return false;
+        }
+
+        var dbList = await this.GetListByBookIdAsync(model.BookId);
+        foreach (var item in dbList)
+        {
+            await this.SoftDeleteAsync(item.Id);
+        }
+        //var result = model.AuthorIds.ToList();
+
+        //var intersectionList = new List<string>();
+
+        //foreach (var item in dbList) {
+        //    var dbEntity = result.FirstOrDefault(x => x == item.AuthorId);
+        //    if (dbEntity != null) {
+        //        intersectionList.Add(dbEntity);
+        //        result.Remove(dbEntity);
+        //    }
+        //}       
+        //model.AuthorIds = result;
+
+        foreach (var item in model.AuthorIds) {
+            if (string.IsNullOrEmpty(item)) {
+                return false;
+            }
+            var dbResult = await this.GetSingleByIndexAsync(new BookAuthorModel {BookId = model.BookId, AuthorId = item });
+            if (dbResult == null) {
+                dbResult = new BookAuthor();
+                dbResult.AuthorId = item;
+                dbResult.BookId = model.BookId;
+                await this.AddAsync(dbResult);
+            } else if (dbResult.IsDeleted) {
+                await this.RecoverAsync(dbResult.Id);
+            }
+        }
+        return true;
     }
     #endregion
 }

@@ -3,6 +3,7 @@ using Assignment02.HttpClientProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Assignment02.BlazorWebApp;
@@ -35,6 +36,7 @@ public partial class BookDetailPage
     private IEnumerable<Author> SelectedAuthors { get; set; }
 
     private IEnumerable<Author> AllAuthors { get; set; }
+    private IEnumerable<Publisher> AllPublishers { get; set; }
     #endregion
 
     #region [ Methods - Override ]
@@ -49,7 +51,7 @@ public partial class BookDetailPage
             this._book.Publisher = await this.HttpClientContext.Publisher.GetSingleByIdAsync(this._book.PublisherId);
             this.SelectedAuthors = await this.HttpClientContext.Author.GetListByBookIdAsync(this.BookId);
             this.AllAuthors = await this.HttpClientContext.Author.GetListIsNotDeletedAsync();
-            //await this.GetPublisherAsync(this.Books);
+            this.AllPublishers= await this.HttpClientContext.Publisher.GetListIsNotDeletedAsync();
             this.SelectedBook = this._book;
         }
         StateHasChanged();
@@ -65,7 +67,34 @@ public partial class BookDetailPage
     }
 
     private async Task SaveAsync() {
-        var aa = 1;
+        var model = new UpdateBookAndAuthorModel {
+            Book = this.SelectedBook,
+            Authors = this.SelectedAuthors,
+        };
+
+        var result = await this.HttpClientContext.Book.UpdateBookAndAuthorAsync(model);
+
+        if (result) {
+            await this.OnInitializedAsync();
+        }
+    }
+    
+    private void AddAuthor() {
+        var newAuthor = this.AllAuthors.FirstOrDefault();
+        var result = this.SelectedAuthors.ToList();
+        result.Add(newAuthor);
+
+        this.SelectedAuthors = result;
+    }
+    
+    private void RemoveAuthor(Author author) {
+        var result = this.SelectedAuthors.ToList();
+        if (result.Count() <= 1) {
+            return;
+        }
+        result.Remove(author);
+
+        this.SelectedAuthors = result;
     }
     #endregion
 }

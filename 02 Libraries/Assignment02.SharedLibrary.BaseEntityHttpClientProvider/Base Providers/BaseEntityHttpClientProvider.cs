@@ -1,8 +1,6 @@
 ﻿using Assignment02.EntityProviders;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using System.Diagnostics.Metrics;
-using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 
@@ -42,7 +40,7 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
             return false;
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
-            throw;
+            return false;
         }
     }
 
@@ -62,7 +60,7 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
             return null;
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
-            throw;
+            return null;
         }
     }
 
@@ -81,7 +79,7 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
 
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
-            throw;
+            return false;
         }
     }
 
@@ -99,7 +97,7 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
             return false;
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
-            throw;
+            return false;
         }
     }
 
@@ -117,7 +115,7 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
             return false;
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
-            throw;
+            return false;
         }
     }
 
@@ -137,7 +135,7 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
             return null;
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
-            throw;
+            return null;
         }
     }
 
@@ -157,7 +155,7 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
             return null;
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
-            throw;
+            return null;
         }
     }
 
@@ -177,7 +175,7 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
             return null;
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
-            throw;
+            return null;
         }
     }
 
@@ -197,7 +195,7 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
             return -1;
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
-            throw;
+            return -1;
         }
     }
 
@@ -217,7 +215,7 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
             return -1;
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
-            throw;
+            return -1;
         }
     }
     public virtual async Task<int> CountIsNotDeletedAsync() {
@@ -236,7 +234,7 @@ public abstract class BaseEntityHttpClientProvider<TEntity> : IBaseEntityHttpCli
             return -1;
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
-            throw;
+            return -1;
         }
     }
     #endregion

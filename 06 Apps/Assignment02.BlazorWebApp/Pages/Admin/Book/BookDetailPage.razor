@@ -23,45 +23,63 @@
 
             <div style="padding-top: 20px;">
                 <div class="form-group col-md-6">
-                    <SfTextBox Type="InputType.Email" @bind-Value=SelectedBook.Title CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Title"></SfTextBox>
+                    <label class="example-label">Title</label>
+                    <SfTextBox Type="InputType.Text" @bind-Value=SelectedBook.Title CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" ></SfTextBox>
                 </div>
 
                 <div class="form-group col-md-6">
-                    <SfTextBox ID="Type" Type="InputType.Text" @bind-Value=SelectedBook.Type CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Type"></SfTextBox>
+                    <label class="example-label">Type</label>
+                    <SfTextBox ID="Type" Type="InputType.Text" @bind-Value=SelectedBook.Type CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" ></SfTextBox>
                 </div>
 
                 <div class="form-group col-md-6">
-                    <SfNumericTextBox ID="Price" @bind-Value=SelectedBook.Price CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Price"></SfNumericTextBox>
+                    <label class="example-label">Price</label>
+                    <SfNumericTextBox ID="Price" @bind-Value=SelectedBook.Price CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" ></SfNumericTextBox>
                 </div>
 
                 <div class="form-group col-md-6">
-                    <SfTextBox ID="Advance" Type="InputType.Text" @bind-Value=SelectedBook.Advance CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Advance"></SfTextBox>
+                    <label class="example-label">Advance</label>
+                    <SfTextBox ID="Advance" Type="InputType.Text" @bind-Value=SelectedBook.Advance CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" ></SfTextBox>
                 </div>
 
                 <div class="form-group col-md-6">
-                    <SfTextBox ID="Royalty" Type="InputType.Text" @bind-Value=SelectedBook.Royalty CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Royalty"></SfTextBox>
+                    <label class="example-label">Royalty</label>
+                    <SfTextBox ID="Royalty" Type="InputType.Text" @bind-Value=SelectedBook.Royalty CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" ></SfTextBox>
                 </div>
 
                 <div class="form-group col-md-6">
-                    <SfNumericTextBox ID="Sales" @bind-Value=SelectedBook.Sales CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Sales"></SfNumericTextBox>
+                    <label class="example-label">Sales</label>
+                    <SfNumericTextBox ID="Sales" @bind-Value=SelectedBook.Sales CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" ></SfNumericTextBox>
                 </div>
 
                 <div class="form-group col-md-6">
-                    <SfTextBox ID="Note" Type="InputType.Text" @bind-Value=SelectedBook.Note CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Note"></SfTextBox>
+                    <label class="example-label">Note</label>
+                    <SfTextBox ID="Note" Type="InputType.Text" @bind-Value=SelectedBook.Note CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always"></SfTextBox>
                 </div>
 
                 <div class="form-group col-md-6">
-                    <SfDatePicker ID="PublishedDate" Type="InputType.Text" @bind-Value=SelectedBook.PublishedDate CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Published Date"></SfDatePicker>
+                    <label class="example-label">Publisher Date</label>
+                    <SfDatePicker ID="PublishedDate" Type="InputType.Text" @bind-Value=SelectedBook.PublishedDate CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always"></SfDatePicker>
                 </div>
 
                 <div class="form-group col-md-6">
-                    <SfTextBox Type="InputType.Text" @bind-Value=SelectedBook.Publisher.Name CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Placeholder="Publisher"></SfTextBox>
-                    <SfButton></SfButton>
-
+                    <label class="example-label">Publisher Name</label>
+                    <SfDropDownList @bind-Value=@(SelectedBook.PublisherId) DataSource="@AllPublishers" Placeholder="Publisher Name">
+                        <DropDownListFieldSettings Value="Id" Text="Name">
+                        </DropDownListFieldSettings>
+                    </SfDropDownList>
                 </div>
                 <br />
                 <span>Author</span>
+
+
                 @foreach (var item in SelectedAuthors) {
+                    <div class="form-group col-md-6">
+                        <SfTextBox Value=@(item.FirstName + " " + item.LastName) CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Enabled="false"></SfTextBox>
+                    </div>
+
+                    <text>Change into</text>
+
                     <div class="form-group col-md-6">
                         <SfDropDownList @bind-Value=@(item.Id) AllowFiltering="true" DataSource="@AllAuthors" TValue="string" TItem="Author" FloatLabelType="FloatLabelType.Always">
                             <DropDownListTemplates TItem="Author">
@@ -69,7 +87,7 @@
                                     @{
                                         var dropDownItem = child_context as Author;
                                         <div>
-                                            <span>  @(dropDownItem.FirstName + " " + dropDownItem.LastName )</span>
+                                            <span>  @(dropDownItem.FirstName + " " + dropDownItem.LastName)</span>
                                         </div>
                                     }
                                 </ItemTemplate>
@@ -83,13 +101,18 @@
                                     }
                                 </ValueTemplate>
                             </DropDownListTemplates>
-                            <DropDownListFieldSettings Value="FirstName" Text="LastName">
-
+                            <DropDownListFieldSettings Value="Id" Text="FirstName">
                             </DropDownListFieldSettings>
+                            @{
+                               
+                                <SfButton @onclick="() => RemoveAuthor(item)">Remove Author</SfButton>
+                            }
                         </SfDropDownList>
                     </div>
                 }
             </div>
+            <br />
+            <SfButton @onclick="() => AddAuthor()">Add an Author</SfButton>
         </EditForm>
         <div class="temp">
             <br />

@@ -14,10 +14,23 @@ public class BookAuthorDataProvider : BaseEntityDataProvider<BookAuthor, AppDbCo
     #endregion
 
     #region [ Methods - Single ]
-    public async Task<BookAuthor> GetSingleByIndexAsync(UpdateBookAuthorModel model) {
+    public async Task<BookAuthor> GetSingleByIndexAsync(BookAuthorModel model) {
         try {
             using var context = await this.GetContextAsync();
             var result = await context.BookAuthors.AsNoTracking().FirstOrDefaultAsync(x => x.AuthorId == model.AuthorId && x.BookId == model.BookId);
+            return result;
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return null;
+        }
+    }
+    #endregion
+
+    #region [ Methods - List ]
+    public async Task<IEnumerable<BookAuthor>> GetListByBookIdAsync(string bookId) {
+        try {
+            using var context = await this.GetContextAsync();
+            var result = await context.BookAuthors.AsNoTracking().Where(x => x.BookId == bookId && x.IsDeleted== false).ToListAsync();
             return result;
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);

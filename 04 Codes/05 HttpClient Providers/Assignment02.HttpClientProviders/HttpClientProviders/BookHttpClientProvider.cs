@@ -31,7 +31,28 @@ public class BookHttpClientProvider : BaseEntityHttpClientProvider<Book>, IBookH
             return null;
         } catch (Exception ex) {
             this._logger.LogError(ex.Message);
-            throw;
+            return null;
+        }
+    }
+    #endregion
+
+    #region [ Methods - Update ]
+    public async Task<bool> UpdateBookAndAuthorAsync(UpdateBookAndAuthorModel model) {
+        try {
+            var url = this._entityUrl + MethodUrl.UpdateBookAndAuthor;
+            var httpClient = this.CreateClient();
+
+            var response = await httpClient.PutAsJsonAsync(url, model);
+
+            if (response.IsSuccessStatusCode) {
+                
+                return true;
+            }
+
+            return false;
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return false;
         }
     }
     #endregion

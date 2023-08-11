@@ -23,15 +23,15 @@ public class Book : BaseEntity
     public decimal Price { get; set; }
 
     [DataType(DataType.Text)]
-    public string Advance { get; set; }
+    public string? Advance { get; set; }
 
     [DataType(DataType.Text)]
-    public string Royalty { get; set; }
+    public string? Royalty { get; set; }
 
-    public decimal Sales { get; set; }
+    public decimal? Sales { get; set; }
 
     [DataType(DataType.Text)]
-    public string Note { get; set; }
+    public string? Note { get; set; }
 
     [Required]
     [DataType(DataType.DateTime)]

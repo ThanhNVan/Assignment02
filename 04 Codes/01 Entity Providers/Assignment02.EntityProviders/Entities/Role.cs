@@ -11,7 +11,7 @@ public class Role : BaseEntity
 {
     #region [ Properties ]
     [DataType(DataType.Text)]
-    public string Description { get; set; }
+    public string? Description { get; set; }
     #endregion
 
     #region [ Virtual Entity FK Properties ]

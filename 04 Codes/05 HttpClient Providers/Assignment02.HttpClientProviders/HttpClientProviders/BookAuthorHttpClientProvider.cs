@@ -1,6 +1,7 @@
 ﻿using Assignment02.EntityProviders;
 using Assignment02.SharedLibrary;
 using Microsoft.Extensions.Logging;
+using System.Net.Http.Json;
 
 namespace Assignment02.HttpClientProviders;
 
@@ -10,6 +11,24 @@ public class BookAuthorHttpClientProvider : BaseEntityHttpClientProvider<BookAut
     public BookAuthorHttpClientProvider(IHttpClientFactory httpClientFactory, 
                                         ILogger<BaseEntityHttpClientProvider<BookAuthor>> logger) : base(httpClientFactory, logger) {
         this._entityUrl = EntityUrl.BookAuthor;
+    }
+    #endregion
+
+    #region [ Methods - Update ]
+    public async Task<bool> UpdateBookAuthorAsync(UpdateBookAuthorModel model) {
+        try {
+            var url = this._entityUrl + MethodUrl.UpdateBookAuthor;
+            var httpClient = this.CreateClient();
+            var response = await httpClient.PostAsJsonAsync(url,model);
+
+            if (response.IsSuccessStatusCode) {
+                return true;
+            }
+            return false;   
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return false;
+        }
     }
     #endregion
 }
