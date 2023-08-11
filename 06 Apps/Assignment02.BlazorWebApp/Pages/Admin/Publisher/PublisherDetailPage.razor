@@ -1,0 +1,123 @@
+﻿@page "/Admin/Publishers/Details/{PublisherId}"
+@using Assignment02.EntityProviders;
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Inputs
+
+@namespace Assignment02.BlazorWebApp
+
+
+
+@if (string.IsNullOrEmpty(Role)) {
+    <PageTitle>Unauthorized</PageTitle>
+    <Unauthorized></Unauthorized>
+} else if (Role == AppRole.Admin) {
+    <PageTitle>Publishers</PageTitle>
+    <h3>Publishers</h3>
+
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Email Address:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Email" @bind-Value=@Publisher.Name CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Address :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=@Publisher.Address CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                City :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=@Publisher.City CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                State :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=@Publisher.State CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                State :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=@Publisher.Country CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Is Deleted:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" Value=@Publisher.IsDeleted.ToString() CssClass="e-small" Width="100" Readonly=true></SfTextBox>
+            </dd>
+
+            <div>
+                <dt class="col-sm-2">
+                    <SfButton @onclick="async () => await UpdateAsync()">Update</SfButton>
+                </dt>
+                <br />
+                <dd class="col-sm-4">
+                    <SfButton @onclick="async () => await CancelAsync()">Cancel</SfButton>
+                </dd>
+                @if (Publisher.IsDeleted) {
+                    <dt class="col-sm-2">
+                        <SfButton @onclick="async () => await RecoverAsync()">Recover</SfButton>
+                    </dt>
+
+                } else {
+                    <dt class="col-sm-2">
+                        <SfButton @onclick="async () => await SoftDeleteAsync()">Delete</SfButton>
+                    </dt>
+                }
+            </div>
+        </dl>
+    </div>
+
+    <br />
+    <h4>Publisher's Books </h4>
+    <div>
+        <SfGrid DataSource="@Books" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" Height="600">
+            <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>
+            <GridColumns>
+                <GridColumn Field=@nameof(Book.Title)></GridColumn>
+                <GridColumn Field=@nameof(Book.Type)></GridColumn>
+                <GridColumn Field=@nameof(Book.Price)></GridColumn>
+                <GridColumn Field=@nameof(Book.Sales)></GridColumn>
+                <GridColumn Field=@nameof(Book.PublishedDate)>
+                    <Template>
+                        @{
+                            var book = context as Book;
+                            <span>@(book.PublishedDate.ToString("MMM dd, yyyy"))</span>
+                        }
+                    </Template>
+                </GridColumn>
+                <GridColumn Field=@nameof(Book.IsDeleted)></GridColumn>
+                <GridColumn TextAlign="TextAlign.Right">
+                    <Template>
+                        @{
+                            var book = context as Book;
+                            <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="() => ViewBookDetailPage(book.Id)"></SfButton>
+                        }
+                    </Template>
+                </GridColumn>
+            </GridColumns>
+        </SfGrid>
+    </div>
+
+    <br />
+    <h4>Publisher's Users </h4>
+    <div>
+        <SfGrid DataSource="@Users" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" Height="600">
+            <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>
+
+        </SfGrid>
+    </div>
+}           

@@ -1,0 +1,33 @@
+﻿@page "/Admin/Publishers"
+@using Assignment02.EntityProviders;
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+
+@namespace Assignment02.BlazorWebApp
+
+<PageTitle>Publishers</PageTitle>
+<h3>Publishers</h3>
+
+@if (this.PubliserIEnumerable == null)
+{
+    <p><em>Loading...</em></p>
+} else {
+    <SfGrid DataSource="@PubliserIEnumerable" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" Height="600">
+        <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>
+        <GridColumns>
+            <GridColumn Field=@nameof(Publisher.Name)></GridColumn>
+            <GridColumn Field=@nameof(Publisher.Address)></GridColumn>
+            <GridColumn Field=@nameof(Publisher.City)></GridColumn>
+            <GridColumn Field=@nameof(Publisher.State)></GridColumn>
+            <GridColumn Field=@nameof(Publisher.City)></GridColumn>
+            <GridColumn TextAlign="TextAlign.Right">
+                <Template>
+                    @{
+                        var publisher = context as Publisher;
+                        <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="() => ViewDetail(publisher.Id)"></SfButton>
+                    }
+                </Template>
+            </GridColumn>
+        </GridColumns>
+    </SfGrid>
+}

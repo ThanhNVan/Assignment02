@@ -11,5 +11,7 @@ public interface IBookHttpClientProvider : IBaseEntityHttpClientProvider<Book>
 
     #region [ Methods - Update ]
     Task<bool> UpdateBookAndAuthorAsync(UpdateBookAndAuthorModel model);
+
+    Task<IEnumerable<Book>> GetListByPublisherIdAsync(string publisherId);
     #endregion
 }

@@ -33,6 +33,23 @@ public class BookController : BaseEntityWebApiProvider<Book, IBookLogicProvider>
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
     }
+
+    [HttpGet(nameof(MethodUrl.GetListByPublisherId) + "/{publisherId}")]
+    public async Task<IActionResult> GetListByPublisherIdAsync(string publisherId) {
+        try {
+            var result = await this._logicContext.Book.GetListByPublisherIdAsync(publisherId);
+            if (result == null || result.Count() <= 0) {
+                return NotFound();
+            }
+            return Ok(result);
+        } catch (ArgumentNullException ex) {
+            this._logger.LogError(ex.Message);
+            return BadRequest();
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+        }
+    }
     #endregion
 
     #region [ Methods - Update ]

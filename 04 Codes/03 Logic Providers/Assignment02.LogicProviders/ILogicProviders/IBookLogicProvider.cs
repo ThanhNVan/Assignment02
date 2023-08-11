@@ -11,5 +11,7 @@ public interface IBookLogicProvider : IBaseEntityLogicProvider<Book>
 
     #region [ Methods - Update ]
     Task<bool> UpdateBookAndAuthorAsync(UpdateBookAndAuthorModel model);
+
+    Task<IEnumerable<Book>> GetListByPublisherIdAsync(string publisherId);
     #endregion
 }

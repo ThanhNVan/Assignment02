@@ -21,6 +21,5 @@
 	  <Folder Include="Pages\Admin\BookAuthor\" />
 	  <Folder Include="Pages\Admin\Role\" />
 	  <Folder Include="Pages\Admin\User\" />
-	  <Folder Include="Pages\Admin\Publisher\" />
 	</ItemGroup>
 </Project>

@@ -34,6 +34,25 @@ public class BookHttpClientProvider : BaseEntityHttpClientProvider<Book>, IBookH
             return null;
         }
     }
+
+    public async Task<IEnumerable<Book>> GetListByPublisherIdAsync(string publisherId) {
+        try {
+            var url = this._entityUrl + MethodUrl.GetListByPublisherId + publisherId;
+            var httpClient = this.CreateClient();
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode) {
+                var result = JsonConvert.DeserializeObject<IEnumerable<Book>>(await response.Content.ReadAsStringAsync());
+                return result;
+            }
+
+            return null;
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return null;
+        }
+    }
     #endregion
 
     #region [ Methods - Update ]

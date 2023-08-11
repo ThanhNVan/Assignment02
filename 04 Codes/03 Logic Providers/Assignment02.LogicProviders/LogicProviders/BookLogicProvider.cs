@@ -10,6 +10,7 @@ public class BookLogicProvider : BaseEntityLogicProvider<Book, IBookDataProvider
     #region [ Fields ]
     protected readonly DataContext _dataContext;    
     #endregion
+
     #region [ CTor ]
     public BookLogicProvider(ILogger<BaseEntityLogicProvider<Book, IBookDataProvider>> logger, 
                                 IBookDataProvider dataProvider,
@@ -25,6 +26,16 @@ public class BookLogicProvider : BaseEntityLogicProvider<Book, IBookDataProvider
         }
 
         var result = await this._dataProvider.GetListByAuthorIdAsync(authorId);   
+
+        return result;
+    }
+
+    public async Task<IEnumerable<Book>> GetListByPublisherIdAsync(string publisherId) {
+        if (string.IsNullOrEmpty(publisherId)) {
+            return null;
+        }
+
+        var result = await this._dataProvider.GetListByPublisherIdAsync(publisherId);
 
         return result;
     }
