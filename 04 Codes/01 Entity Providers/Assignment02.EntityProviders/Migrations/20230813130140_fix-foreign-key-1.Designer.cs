@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assignment02.EntityProviders.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230811124605_fix-null")]
-    partial class fixnull
+    [Migration("20230813130140_fix-foreign-key-1")]
+    partial class fixforeignkey1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

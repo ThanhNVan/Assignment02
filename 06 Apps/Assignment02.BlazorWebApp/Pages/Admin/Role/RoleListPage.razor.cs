@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Assignment02.BlazorWebApp;
 
-public partial class AuthorListPage
+public partial class RoleListPage
 {
-
     #region [ Properties - Inject]
     [Inject]
     private NavigationManager Navigation { get; set; }
@@ -22,8 +21,8 @@ public partial class AuthorListPage
     #endregion
 
     #region [ Properties ]
-    public IEnumerable<Author> AuthorIEnumerable { get; set; }
-    
+    public IEnumerable<Role> Roles { get; set; }
+
     private string Role { get; set; }
     #endregion
 
@@ -33,22 +32,17 @@ public partial class AuthorListPage
             this.Role = await SessionStorage.GetItemAsStringAsync(AppRole.Role);
         } catch {
         }
-        StateHasChanged();
 
         if (!string.IsNullOrEmpty(Role)) {
-            this.AuthorIEnumerable = await this.HttpClientContext.Author.GetListIsNotDeletedAsync();
+            this.Roles = await this.HttpClientContext.Role.GetListAllAsync();
         }
         StateHasChanged();
     }
     #endregion
 
     #region [ Private Methods -  ]
-    private async Task DeleteAsync(string authorId) {
-        await this.HttpClientContext.Author.SoftDeleteAsync(authorId);
-    }
-    
-    private void ViewDetail(string authorId) {
-        this.Navigation.NavigateTo($"/Admin/Authors/Details/{authorId}");
+    private void ViewRolePage(string roleId) {
+        this.Navigation.NavigateTo($"/Admin/Roles/Details/{roleId}");
     }
     #endregion
 }

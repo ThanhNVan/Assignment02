@@ -4,7 +4,7 @@
 
 namespace Assignment02.EntityProviders.Migrations
 {
-    public partial class fixforeignkey : Migration
+    public partial class fixforeignkey1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

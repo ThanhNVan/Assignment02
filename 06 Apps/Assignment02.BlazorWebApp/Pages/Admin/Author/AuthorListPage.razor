@@ -51,7 +51,7 @@
                 <Template>
                     @{
                         var author = context as Author;
-                        <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="async () => await ViewDetailAsync(author.Id)"></SfButton>
+                        <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick=" () =>  ViewDetail(author.Id)"></SfButton>
                         <SfButton CssClass="e-inherit" IconCss="e-icons e-trash" OnClick="async () => await DeleteAsync(author.Id)"></SfButton>
                     }
                 </Template>

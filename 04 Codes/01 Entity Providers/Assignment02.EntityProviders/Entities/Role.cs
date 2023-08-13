@@ -16,6 +16,7 @@ public class Role : BaseEntity
 
     #region [ Virtual Entity FK Properties ]
     [JsonIgnore]
+    [NotMapped]
     [InverseProperty("Role")]
     public virtual ICollection<User>? Users { get; set; }
     #endregion

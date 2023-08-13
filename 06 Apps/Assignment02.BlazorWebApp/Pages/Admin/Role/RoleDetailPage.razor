@@ -1,0 +1,70 @@
+﻿@page "/Admin/Roles/Details/{RoleId}"
+@using Assignment02.EntityProviders;
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Calendars
+@using Syncfusion.Blazor.DropDowns
+
+@namespace Assignment02.BlazorWebApp
+
+@if (string.IsNullOrEmpty(Role)) {
+    <PageTitle>Unauthorized</PageTitle>
+    <Unauthorized></Unauthorized>
+} else if (Role == AppRole.Admin) {
+    <PageTitle>Publishers</PageTitle>
+    <h3>Publishers</h3>
+
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Description:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Email" @bind-Value=@this.RoleItem.Description CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Created At:
+            </dt>
+            <dd class="col-sm-4">
+                <SfDatePicker Value=@this.RoleItem.CreatedAt CssClass="e-small" Width="100" Readonly=true></SfDatePicker>
+            </dd>
+
+            <dt class="col-sm-2">
+                Last Updated At:
+            </dt>
+            <dd class="col-sm-4">
+                <SfDatePicker Value=@this.RoleItem.LastUpdatedAt CssClass="e-small" Width="100" Readonly=true></SfDatePicker>
+            </dd>
+
+            <dt class="col-sm-2">
+                Is Deleted:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" Value=@RoleItem.IsDeleted.ToString() CssClass="e-small" Width="100" Readonly=true></SfTextBox>
+            </dd>
+
+            <div>
+                <dt class="col-sm-2">
+                    <SfButton @onclick="async () => await UpdateAsync()">Update</SfButton>
+                </dt>
+                <br />
+                <dd class="col-sm-4">
+                    <SfButton @onclick="async () => await CancelAsync()">Cancel</SfButton>
+                </dd>
+
+                @if (this.RoleItem.IsDeleted) {
+                    <dt class="col-sm-2">
+                        <SfButton @onclick="async () => await RecoverAsync()">Recover</SfButton>
+                    </dt>
+
+                } else {
+                    <dt class="col-sm-2">
+                        <SfButton @onclick="async () => await SoftDeleteAsync()">Delete</SfButton>
+                    </dt>
+                }
+            </div>
+        </dl>
+    </div>
+}

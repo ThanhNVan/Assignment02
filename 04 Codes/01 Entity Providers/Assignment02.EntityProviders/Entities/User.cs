@@ -49,11 +49,13 @@ public class User : BaseEntity
 
     #region [ Virtual Entity FK Properties ]
     [JsonIgnore]
+    [NotMapped]
     [ForeignKey("User_Role")]
     [InverseProperty("Users")]
     public virtual Role? Role { get; set; }
     
     [JsonIgnore]
+    [NotMapped]
     [ForeignKey("User_Publisher")]
     [InverseProperty("Users")]
     public virtual Publisher? Publisher { get; set; }

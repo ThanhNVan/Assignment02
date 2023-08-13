@@ -46,11 +46,13 @@ public class Book : BaseEntity
 
     #region [ Virtual FK Properties ]
     [JsonIgnore]
+    [NotMapped]
     [ForeignKey("Book_Publisher")]
     [InverseProperty("Books")]
     public virtual Publisher? Publisher { get; set; } 
     
     [JsonIgnore]
+    [NotMapped]
     [InverseProperty("Book")]
     public virtual ICollection<BookAuthor>? BookAuthor { get; set; }
     #endregion

@@ -33,10 +33,12 @@ public class Publisher : BaseEntity
 
     #region [ Virtual Properties ]
     [JsonIgnore]
+    [NotMapped]
     [InverseProperty("Publisher")]
     public virtual ICollection<User>? Users { get; set; }
 
     [JsonIgnore]
+    [NotMapped]
     [InverseProperty("Publisher")]
     public virtual ICollection<Book>? Books { get; set; }
     #endregion

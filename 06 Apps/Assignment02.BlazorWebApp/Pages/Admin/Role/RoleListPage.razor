@@ -1,0 +1,34 @@
+﻿@page "/Admin/Roles"
+@using Assignment02.EntityProviders;
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Calendars
+@using Syncfusion.Blazor.DropDowns
+
+@namespace Assignment02.BlazorWebApp
+
+@if (string.IsNullOrEmpty(Role)) {
+    <PageTitle>Unauthorized</PageTitle>
+    <Unauthorized></Unauthorized>
+} else if (Role == AppRole.Admin) {
+    <PageTitle>User</PageTitle>
+    <h3>User</h3>
+
+    <div>
+        <SfGrid DataSource="@this.Roles" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" Height="600">
+            <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>
+            <GridColumns>
+                <GridColumn Field=@nameof(EntityProviders.Role.Description) IsIdentity=true></GridColumn>
+                <GridColumn TextAlign="TextAlign.Right">
+                    <Template>
+                        @{
+                            var role = context as Role;
+                            <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="() => ViewRolePage(role.Id)"></SfButton>
+                        }
+                    </Template>
+                </GridColumn>
+            </GridColumns>
+        </SfGrid>
+    </div>
+}

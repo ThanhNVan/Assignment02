@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assignment02.EntityProviders.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230813125239_fix-FK-again")]
-    partial class fixFKagain
+    [Migration("20230813131147_fix_data_FK")]
+    partial class fix_data_FK
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
