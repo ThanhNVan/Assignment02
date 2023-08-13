@@ -2,12 +2,11 @@
 using Assignment02.HttpClientProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Assignment02.BlazorWebApp;
 
-public partial class RoleListPage
+public partial class RoleNewPage
 {
     #region [ Properties - Inject]
     [Inject]
@@ -21,8 +20,7 @@ public partial class RoleListPage
     #endregion
 
     #region [ Properties ]
-    public IEnumerable<Role> Roles { get; set; }
-
+    public Role RoleItem { get; set; }
     private string Role { get; set; }
     #endregion
 
@@ -34,19 +32,24 @@ public partial class RoleListPage
         }
 
         if (!string.IsNullOrEmpty(Role)) {
-            this.Roles = await this.HttpClientContext.Role.GetListAllAsync();
+
+            this.RoleItem = new Role();
         }
         StateHasChanged();
     }
     #endregion
 
-    #region [ Private Methods -  ]
-    private void ViewRolePage(string roleId) {
-        this.Navigation.NavigateTo($"/Admin/Roles/Details/{roleId}");
+    #region [ Methods - Private ]
+    private async Task CancelAsync() {
+
+        await this.OnInitializedAsync();
     }
 
-    private void AddNew() {
-        this.Navigation.NavigateTo("/Admin/Roles/New");
+    private async Task AddAsync() {
+        var result = await this.HttpClientContext.Role.AddAsync(this.RoleItem);
+        if (result) {
+            this.Navigation.NavigateTo("/Admin/Roles"); 
+        }
     }
     #endregion
 }

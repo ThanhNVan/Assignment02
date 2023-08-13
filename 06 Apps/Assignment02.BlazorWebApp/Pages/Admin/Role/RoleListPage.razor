@@ -15,6 +15,7 @@
     <PageTitle>User</PageTitle>
     <h3>User</h3>
 
+    <SfButton CssClass="e-inherit" IconCss="e-icons e-plus" OnClick="() => AddNew()">Add New Role</SfButton>
     <div>
         <SfGrid DataSource="@this.Roles" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" Height="600">
             <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>

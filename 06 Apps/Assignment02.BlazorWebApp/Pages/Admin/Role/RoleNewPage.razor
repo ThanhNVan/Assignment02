@@ -1,4 +1,4 @@
-﻿@page "/Admin/Roles/Details/{RoleId}"
+﻿@page "/Admin/Roles/New"
 @using Assignment02.EntityProviders;
 @using Syncfusion.Blazor.Buttons
 @using Syncfusion.Blazor.Inputs
@@ -6,13 +6,13 @@
 
 @namespace Assignment02.BlazorWebApp
 
+
 @if (string.IsNullOrEmpty(Role)) {
     <PageTitle>Unauthorized</PageTitle>
     <Unauthorized></Unauthorized>
 } else if (Role == AppRole.Admin) {
     <PageTitle>Roles</PageTitle>
     <h3>Roles</h3>
-
     <div>
         <dl class="row">
             <dt class="col-sm-2">
@@ -45,23 +45,13 @@
 
             <div>
                 <dt class="col-sm-2">
-                    <SfButton @onclick="async () => await UpdateAsync()">Update</SfButton>
+                    <SfButton @onclick="async () => await AddAsync()">Add</SfButton>
                 </dt>
                 <br />
                 <dd class="col-sm-4">
                     <SfButton @onclick="async () => await CancelAsync()">Cancel</SfButton>
                 </dd>
 
-                @if (this.RoleItem.IsDeleted) {
-                    <dt class="col-sm-2">
-                        <SfButton @onclick="async () => await RecoverAsync()">Recover</SfButton>
-                    </dt>
-
-                } else {
-                    <dt class="col-sm-2">
-                        <SfButton @onclick="async () => await SoftDeleteAsync()">Delete</SfButton>
-                    </dt>
-                }
             </div>
         </dl>
     </div>
