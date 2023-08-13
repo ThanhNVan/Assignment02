@@ -3,6 +3,6 @@ using Assignment02.SharedLibrary;
 
 namespace Assignment02.HttpClientProviders;
 
-public interface IRoleHttpClientProvider : IBaseEntityHttpClientProvider<Publisher>
+public interface IRoleHttpClientProvider : IBaseEntityHttpClientProvider<Role>
 {
 }

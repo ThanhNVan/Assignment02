@@ -3,6 +3,7 @@ using Assignment02.HttpClientProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Assignment02.BlazorWebApp;
@@ -33,6 +34,8 @@ public partial class PublisherDetailPage
     public IEnumerable<User> Users { get; set; }
 
     public IEnumerable<Book> Books { get; set; }
+
+    public IEnumerable<Role> Roles { get; set; }
     #endregion
 
     #region [ Methods - Override ]
@@ -45,7 +48,11 @@ public partial class PublisherDetailPage
         if (!string.IsNullOrEmpty(Role)) {
             this.Publisher = await this.HttpClientContext.Publisher.GetSingleByIdAsync(this.PublisherId);
             if (this.Publisher != null) {
+                this.Roles = await this.HttpClientContext.Role.GetListAllAsync();
                 this.Users = await this.HttpClientContext.User.GetListByPublisherIdAsync(this.PublisherId);
+                foreach (var user in this.Users) {
+                    user.Role = this.Roles.FirstOrDefault(x => x.Id == user.RoleId);
+                }
                 this.Books = await this.HttpClientContext.Book.GetListByPublisherIdAsync(this.PublisherId);
             }
         }
@@ -83,6 +90,17 @@ public partial class PublisherDetailPage
 
     private void ViewBookDetailPage(string bookId) {
         this.Navigation.NavigateTo($"/Admin/Books/Details/{bookId}");
+    }
+    
+    private void ViewUserDetailPage(string userId) {
+        this.Navigation.NavigateTo($"/Admin/Users/Details/{userId}");
+    }
+
+    private async Task<Role> GetRoleAsync(string roleId) {
+        var result = default(Role);
+        result =  await this.HttpClientContext.Role.GetSingleByIdAsync(roleId);
+
+        return result;
     }
     #endregion
 }
