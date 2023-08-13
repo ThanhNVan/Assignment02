@@ -1,0 +1,67 @@
+﻿@page "/Admin/Users"
+@using Assignment02.EntityProviders;
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+
+@namespace Assignment02.BlazorWebApp
+
+@if (string.IsNullOrEmpty(Role)) {
+    <PageTitle>Unauthorized</PageTitle>
+    <Unauthorized></Unauthorized>
+} else if (Role == AppRole.Admin) {
+    <PageTitle>User</PageTitle>
+    <h3>User</h3>
+
+    <div>
+        <SfGrid DataSource="@Users" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" Height="600">
+            <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>
+            <GridColumns>
+                <GridColumn Field=@nameof(User.Email) IsIdentity=true></GridColumn>
+                <GridColumn Field=@nameof(User.FirstName)></GridColumn>
+                <GridColumn Field=@nameof(User.MiddleName)></GridColumn>
+                <GridColumn Field=@nameof(User.LastName)></GridColumn>
+                <GridColumn Field=@nameof(User.HiredDate) HeaderText="Hired Date">
+                    <Template>
+                        @{
+                            var user = context as User;
+                            <span>@(user.HiredDate.ToString("MMM dd, yyyy"))</span>
+                        }
+                    </Template>
+                </GridColumn>
+                <GridColumn Field=@nameof(User.RoleId) HeaderText="Role">
+                    <Template>
+                        @{
+                            var user = context as User;
+                            if (user.Role != null) {
+                                <span>@(user.Role.Description)</span>
+                            } else {
+                                <span>@(user.RoleId)</span>
+                            }
+                        }
+                    </Template>
+                </GridColumn>
+
+                <GridColumn Field=@nameof(User.PublisherId) HeaderText="Publisher">
+                    <Template>
+                        @{
+                            var user = context as User;
+                            if (user.Role != null) {
+                                <span>@(user.Publisher.Name)</span>
+                            } else {
+                                <span>@(user.PublisherId)</span>
+                            }
+                        }
+                    </Template>
+                </GridColumn>
+                <GridColumn TextAlign="TextAlign.Right">
+                    <Template>
+                        @{
+                            var user = context as User;
+                            <SfButton CssClass="e-inherit" IconCss="e-icons e-circle-info" OnClick="() => ViewUserDetailPage(user.Id)"></SfButton>
+                        }
+                    </Template>
+                </GridColumn>
+            </GridColumns>
+        </SfGrid>
+    </div>
+}

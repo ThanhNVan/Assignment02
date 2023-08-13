@@ -1,0 +1,18 @@
+﻿@page "/Admin/Users/Details/{UserId}"
+@using Assignment02.EntityProviders;
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Buttons
+
+@namespace Assignment02.BlazorWebApp
+
+@if (string.IsNullOrEmpty(Role))
+{
+    <PageTitle>Unauthorized</PageTitle>
+    <Unauthorized></Unauthorized>
+}
+
+else if (Role == AppRole.Admin)
+{
+    <PageTitle>User</PageTitle>
+    <h3>User</h3>
+}
