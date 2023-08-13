@@ -29,4 +29,21 @@ public class AuthorDataProvider : BaseEntityDataProvider<Author, AppDbContext>, 
         }
     }
     #endregion
+
+    #region [ Methods - Single ]
+    public async Task<Author> GetSingleByEmailAsync(string email) {
+        var result = default (Author);
+
+        try {
+            using var context = await this.GetContextAsync();
+
+            result = await context.Authors.FirstOrDefaultAsync(author => author.Email == email);
+
+            return result;
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return result;
+        }
+    }
+    #endregion
 }

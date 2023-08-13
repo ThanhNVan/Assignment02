@@ -2,6 +2,7 @@
 using Assignment02.SharedLibrary;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace Assignment02.HttpClientProviders;
 
@@ -15,7 +16,7 @@ public class AuthorHttpClientProvider : BaseEntityHttpClientProvider<Author>, IA
     }
     #endregion
 
-    #region [ Methods -  ]
+    #region [ Methods - List ]
     public async Task<IEnumerable<Author>> GetListByBookIdAsync(string bookId) {
         var result = default(IEnumerable<Author>);
 
@@ -31,4 +32,22 @@ public class AuthorHttpClientProvider : BaseEntityHttpClientProvider<Author>, IA
         return result;
     }
     #endregion
+
+    #region [ Methods -  ]
+    public async Task<Author> GetSingleByEmailAsync(string email) {
+        var result = default(Author);
+
+        var url = this._entityUrl + MethodUrl.GetSingleByEmail + email;
+        var httpClient = this.CreateClient();
+
+        var response = await httpClient.GetAsync(url);
+
+        if (response.IsSuccessStatusCode) {
+            result = JsonConvert.DeserializeObject<Author>(await response.Content.ReadAsStringAsync());
+        }
+
+        return result;
+    }
+    #endregion
+
 }

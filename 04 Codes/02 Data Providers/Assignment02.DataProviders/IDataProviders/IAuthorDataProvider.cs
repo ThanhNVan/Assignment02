@@ -5,7 +5,11 @@ namespace Assignment02.DataProviders;
 
 public interface IAuthorDataProvider : IBaseEntityDataProvider<Author>
 {
-    #region [ Methods -  ]
+    #region [ Methods - List ]
     Task<IEnumerable<Author>> GetListByBookIdAsync(string bookId);
+    #endregion
+
+    #region [ Methods - Single ]
+    Task<Author> GetSingleByEmailAsync(string email);
     #endregion
 }

@@ -8,4 +8,8 @@ public interface IAuthorLogicProvider : IBaseEntityLogicProvider<Author>
     #region [ Methods - List ]
     Task<IEnumerable<Author>> GetListByBookIdAsync(string bookId);
     #endregion
+
+    #region [ Methods -  ]
+    Task<Author> GetSingleByEmailAsync(string email);
+    #endregion
 }

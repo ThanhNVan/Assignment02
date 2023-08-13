@@ -27,4 +27,13 @@ public class AuthorLogicProvider : BaseEntityLogicProvider<Author, IAuthorDataPr
         return await this._dataProvider.GetListByBookIdAsync(bookId);
     }
     #endregion
+
+    #region [ Methods -  ]
+    public async Task<Author> GetSingleByEmailAsync(string email) {
+        if (string.IsNullOrEmpty(email)) {
+            return null;
+        }
+        return await this._dataProvider.GetSingleByEmailAsync(email);
+    }
+    #endregion
 }

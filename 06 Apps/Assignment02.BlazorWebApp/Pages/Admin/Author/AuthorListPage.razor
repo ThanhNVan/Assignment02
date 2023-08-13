@@ -11,7 +11,7 @@
 @if (AuthorIEnumerable == null) {
     <p><em>Loading...</em></p>
 } else {
-
+    <SfButton CssClass="e-inherit" IconCss="e-icons e-plus" OnClick="() => AddNew()">Add New Author</SfButton>
     <SfGrid DataSource="AuthorIEnumerable" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" EnableVirtualization="true" EnableVirtualMaskRow="true"
             Height="600">
         <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>

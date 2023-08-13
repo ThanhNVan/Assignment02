@@ -2,14 +2,12 @@
 using Assignment02.HttpClientProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Assignment02.BlazorWebApp;
 
-public partial class AuthorListPage
+public partial class AuthorNewPage
 {
-
     #region [ Properties - Inject]
     [Inject]
     private NavigationManager Navigation { get; set; }
@@ -22,9 +20,10 @@ public partial class AuthorListPage
     #endregion
 
     #region [ Properties ]
-    public IEnumerable<Author> AuthorIEnumerable { get; set; }
-    
+    public Author Author { get; set; }
     private string Role { get; set; }
+
+    private string Warning { get; set; }
     #endregion
 
     #region [ Methods - Override ]
@@ -33,27 +32,32 @@ public partial class AuthorListPage
             this.Role = await SessionStorage.GetItemAsStringAsync(AppRole.Role);
         } catch {
         }
-        StateHasChanged();
 
         if (!string.IsNullOrEmpty(Role)) {
-            this.AuthorIEnumerable = await this.HttpClientContext.Author.GetListAllAsync();
+            this.Author = new Author();
         }
         StateHasChanged();
     }
     #endregion
 
-    #region [ Private Methods -  ]
-    private async Task DeleteAsync(string authorId) {
-        await this.HttpClientContext.Author.SoftDeleteAsync(authorId);
+    #region [ Methods - Private ]
+    private async Task CancelAsync() {
+
         await this.OnInitializedAsync();
     }
-    
-    private void ViewDetail(string authorId) {
-        this.Navigation.NavigateTo($"/Admin/Authors/Details/{authorId}");
-    }
 
-    private void AddNew() {
-        this.Navigation.NavigateTo("/Admin/Authors/New");
+    private async Task AddAsync() {
+        var dbResult = await this.HttpClientContext.Author.GetSingleByEmailAsync(this.Author.Email);
+
+        if (dbResult != null) {
+            this.Warning = "Email cannot be duplicated";
+            return;
+        }
+
+        var result = await this.HttpClientContext.Author.AddAsync(this.Author);
+        if (result) {
+            this.Navigation.NavigateTo("/Admin/Authors");
+        }
     }
     #endregion
 }
