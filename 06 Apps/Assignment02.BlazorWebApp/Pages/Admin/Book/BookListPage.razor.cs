@@ -46,5 +46,9 @@ public partial class BookListPage
     private void ViewDetail(string bookId) {
         this.Navigation.NavigateTo($"/Admin/Books/Details/{bookId}");
     }
+
+    private void AddNew() {
+        this.Navigation.NavigateTo("/Admin/Books/New");
+    }
     #endregion
 }

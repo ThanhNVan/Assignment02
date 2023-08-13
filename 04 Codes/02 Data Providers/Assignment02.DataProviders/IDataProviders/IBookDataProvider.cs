@@ -10,4 +10,8 @@ public interface IBookDataProvider : IBaseEntityDataProvider<Book>
     Task<IEnumerable<Book>> GetListByPublisherIdAsync(string publisherId);
     #endregion
 
+    #region [ Methods - Add ]
+    Task<bool> AddBookModelAsync(AddBookModel model);
+    #endregion
+
 }

@@ -11,6 +11,7 @@
 @if (BookIEnumerable == null) {
     <p><em>Loading...</em></p>
 } else {
+    <SfButton CssClass="e-inherit" IconCss="e-icons e-plus" OnClick="() => AddNew()">Add New Author</SfButton>
     <SfGrid DataSource="BookIEnumerable" AllowPaging=true AllowSelection="true" AllowSorting="true" AllowFiltering="true" 
             Height="600">
         <GridPageSettings PageCount="5" PageSizes="true"></GridPageSettings>

@@ -75,4 +75,25 @@ public class BookHttpClientProvider : BaseEntityHttpClientProvider<Book>, IBookH
         }
     }
     #endregion
+
+    #region [ Methods - Add ]
+    public async Task<bool> AddBookModelAsync(AddBookModel model) {
+        try {
+            var url = this._entityUrl + MethodUrl.AddBookModel;
+            var httpClient = this.CreateClient();
+
+            var response = await httpClient.PostAsJsonAsync(url, model);
+
+            if (response.IsSuccessStatusCode) {
+
+                return true;
+            }
+
+            return false;
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return false;
+        }
+    }
+    #endregion
 }

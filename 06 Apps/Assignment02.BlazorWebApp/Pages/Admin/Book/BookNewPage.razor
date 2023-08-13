@@ -1,0 +1,113 @@
+﻿@page "/Admin/Books/New"
+@using Assignment02.EntityProviders;
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Calendars
+@using Syncfusion.Blazor.DropDowns
+
+@namespace Assignment02.BlazorWebApp
+
+@if (string.IsNullOrEmpty(Role)) {
+    <PageTitle>Unauthorized</PageTitle>
+    <Unauthorized></Unauthorized>
+} else if (Role == AppRole.Admin) {
+    <PageTitle>Book</PageTitle>
+    <h3>Book</h3>
+
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Title* :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Email" @bind-Value=Book.Title CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Type* :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=Book.Type CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Price* :
+            </dt>
+            <dd class="col-sm-4">
+                <SfNumericTextBox @bind-Value=Book.Price CssClass="e-small" Width="100"></SfNumericTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Advance :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=Book.Advance CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Royalty :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=Book.Royalty CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Sales :
+            </dt>
+            <dd class="col-sm-4">
+                <SfNumericTextBox @bind-Value=Book.Sales CssClass="e-small" Width="100"></SfNumericTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Note :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=Book.Note CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Published Date* :
+            </dt>
+            <dd class="col-sm-4">
+                <SfDatePicker @bind-Value=Book.PublishedDate CssClass="e-small"></SfDatePicker>
+            </dd>
+
+            <dt class="col-sm-2">
+                Publisher* :
+            </dt>
+            <dd class="col-sm-4">
+                <SfDropDownList @bind-Value=@(Book.PublisherId) DataSource="@Publishers" Placeholder="Publisher Name">
+                    <DropDownListFieldSettings Value="Id" Text="Name">
+                    </DropDownListFieldSettings>
+                </SfDropDownList>
+            </dd>
+            <span>Author</span>
+            <dt class="col-sm-2">
+                <SfButton @onclick="() => AddAuthor()">Add an Author</SfButton>
+            </dt>
+            <dd class="col-sm-4">
+                @foreach (var item in this.Authors) {
+                    <SfDropDownList @bind-Value=@(item.Id) DataSource="@AllAuthors" TValue="string" TItem="AuthorModel">
+                         <DropDownListTemplates TItem="AuthorModel">
+
+                         </DropDownListTemplates>
+                        @{
+                            <dt class="col-sm-2">
+                                <SfButton @onclick="() => RemoveAuthor(item)">Remove Author</SfButton>
+                            </dt>
+                        }
+                        <DropDownListFieldSettings Value="Id" Text="FullName"></DropDownListFieldSettings>
+                    </SfDropDownList>
+                }
+            </dd>
+
+            <dt class="col-sm-2">
+                <SfButton @onclick="async () => await AddAsync()">Add</SfButton>
+            </dt>
+            <dd class="col-sm-4">
+                <SfButton @onclick="async () => await CancelAsync()">Cancel</SfButton>
+            </dd>
+
+        </dl>
+    </div>
+}

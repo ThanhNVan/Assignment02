@@ -70,4 +70,20 @@ public class BookController : BaseEntityWebApiProvider<Book, IBookLogicProvider>
         }
     }
     #endregion
+
+    #region [ Methods - Add ]
+    [HttpPost(nameof(MethodUrl.AddBookModel))]
+    public async Task<IActionResult> UpdateBookAuthorAsync([FromBody] AddBookModel model) {
+        try {
+            var result = await this._logicProvider.AddBookModelAsync(model);
+            if (result) {
+                return Ok("Updated");
+            }
+            return BadRequest();
+        } catch (Exception ex) {
+            this._logger.LogError(ex.Message);
+            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+        }
+    }
+    #endregion
 }

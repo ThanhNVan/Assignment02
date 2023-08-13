@@ -14,4 +14,8 @@ public interface IBookHttpClientProvider : IBaseEntityHttpClientProvider<Book>
 
     Task<IEnumerable<Book>> GetListByPublisherIdAsync(string publisherId);
     #endregion
+
+    #region [ Methods - Add ]
+    Task<bool> AddBookModelAsync(AddBookModel model);
+    #endregion
 }

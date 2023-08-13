@@ -7,6 +7,6 @@ public interface IBookAuthorHttpClientProvider : IBaseEntityHttpClientProvider<B
 {
 
     #region [ Methods - Update ]
-    Task<bool> UpdateBookAuthorAsync(UpdateBookAuthorModel model);
+    Task<bool> AddNewBookAuthorAsync(AddBookModel model);
     #endregion
 }

@@ -43,7 +43,7 @@ public static class MethodUrl
 
     public static string GetListByBookId = "/GetListByBookId/";
 
-    public static string UpdateBookAuthor = "/UpdateBookAuthor/";
+    public static string AddBookModel = "/AddBookModel/";
 
     public static string UpdateBookAndAuthor = "/UpdateBookAndAuthor/";
     #endregion

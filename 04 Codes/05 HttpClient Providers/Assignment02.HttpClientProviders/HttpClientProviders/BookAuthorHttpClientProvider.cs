@@ -15,9 +15,9 @@ public class BookAuthorHttpClientProvider : BaseEntityHttpClientProvider<BookAut
     #endregion
 
     #region [ Methods - Update ]
-    public async Task<bool> UpdateBookAuthorAsync(UpdateBookAuthorModel model) {
+    public async Task<bool> AddNewBookAuthorAsync(AddBookModel model) {
         try {
-            var url = this._entityUrl + MethodUrl.UpdateBookAuthor;
+            var url = this._entityUrl + MethodUrl.AddBookModel;
             var httpClient = this.CreateClient();
             var response = await httpClient.PostAsJsonAsync(url,model);
 
