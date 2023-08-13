@@ -2,12 +2,11 @@
 using Assignment02.HttpClientProviders;
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Assignment02.BlazorWebApp;
 
-public partial class PublisherListPage
+public partial class PublisherNewPage
 {
     #region [ Properties - Inject]
     [Inject]
@@ -21,8 +20,7 @@ public partial class PublisherListPage
     #endregion
 
     #region [ Properties ]
-    public IEnumerable<Publisher> PubliserIEnumerable { get; set; }
-
+    public Publisher Publisher { get; set; }
     private string Role { get; set; }
     #endregion
 
@@ -34,19 +32,24 @@ public partial class PublisherListPage
         }
 
         if (!string.IsNullOrEmpty(Role)) {
-            this.PubliserIEnumerable = await this.HttpClientContext.Publisher.GetListAllAsync();
+
+            this.Publisher = new Publisher();
         }
         StateHasChanged();
     }
     #endregion
 
-    #region [ Private Methods -  ]
-    private void ViewDetail(string publiserId) {
-        this.Navigation.NavigateTo($"/Admin/Publishers/Details/{publiserId}");
+    #region [ Methods - Private ]
+    private async Task CancelAsync() {
+
+        await this.OnInitializedAsync();
     }
 
-    private void AddNew() {
-        this.Navigation.NavigateTo("/Admin/Publishers/New");
+    private async Task AddAsync() {
+        var result = await this.HttpClientContext.Publisher.AddAsync(this.Publisher);
+        if (result) {
+            this.Navigation.NavigateTo("/Admin/Publishers");
+        }
     }
     #endregion
 }

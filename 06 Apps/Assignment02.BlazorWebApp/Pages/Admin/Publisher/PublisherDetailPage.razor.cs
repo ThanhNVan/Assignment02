@@ -50,8 +50,11 @@ public partial class PublisherDetailPage
             if (this.Publisher != null) {
                 this.Roles = await this.HttpClientContext.Role.GetListAllAsync();
                 this.Users = await this.HttpClientContext.User.GetListByPublisherIdAsync(this.PublisherId);
-                foreach (var user in this.Users) {
-                    user.Role = this.Roles.FirstOrDefault(x => x.Id == user.RoleId);
+                if (this.Users != null) {
+
+                    foreach (var user in this.Users) {
+                        user.Role = this.Roles.FirstOrDefault(x => x.Id == user.RoleId);
+                    }
                 }
                 this.Books = await this.HttpClientContext.Book.GetListByPublisherIdAsync(this.PublisherId);
             }
@@ -91,14 +94,14 @@ public partial class PublisherDetailPage
     private void ViewBookDetailPage(string bookId) {
         this.Navigation.NavigateTo($"/Admin/Books/Details/{bookId}");
     }
-    
+
     private void ViewUserDetailPage(string userId) {
         this.Navigation.NavigateTo($"/Admin/Users/Details/{userId}");
     }
 
     private async Task<Role> GetRoleAsync(string roleId) {
         var result = default(Role);
-        result =  await this.HttpClientContext.Role.GetSingleByIdAsync(roleId);
+        result = await this.HttpClientContext.Role.GetSingleByIdAsync(roleId);
 
         return result;
     }

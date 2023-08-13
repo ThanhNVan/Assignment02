@@ -1,0 +1,72 @@
+﻿@page "/Admin/Publishers/New"
+@using Assignment02.EntityProviders;
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Calendars
+
+@namespace Assignment02.BlazorWebApp
+
+@if (string.IsNullOrEmpty(Role)) {
+    <PageTitle>Unauthorized</PageTitle>
+    <Unauthorized></Unauthorized>
+} else if (Role == AppRole.Admin) {
+    <PageTitle>Publisher</PageTitle>
+    <h3>Publisher</h3>
+
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Email Address:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=@Publisher.Name CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Address :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=@Publisher.Address CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                City :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=@Publisher.City CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                State :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=@Publisher.State CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Country :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=@Publisher.Country CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Is Deleted:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" Value=@Publisher.IsDeleted.ToString() CssClass="e-small" Width="100" Readonly=true></SfTextBox>
+            </dd>
+
+            <div>
+                <dt class="col-sm-2">
+                    <SfButton @onclick="async () => await AddAsync()">Add</SfButton>
+                </dt>
+                <br />
+                <dd class="col-sm-4">
+                    <SfButton @onclick="async () => await CancelAsync()">Cancel</SfButton>
+                </dd>
+
+            </div>
+        </dl>
+    </div>
+}
