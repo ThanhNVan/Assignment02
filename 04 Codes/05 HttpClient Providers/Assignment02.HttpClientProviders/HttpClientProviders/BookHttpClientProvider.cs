@@ -56,7 +56,7 @@ public class BookHttpClientProvider : BaseEntityHttpClientProvider<Book>, IBookH
     #endregion
 
     #region [ Methods - Update ]
-    public async Task<bool> UpdateBookAndAuthorAsync(UpdateBookAndAuthorModel model) {
+    public async Task<bool> UpdateBookAndAuthorAsync(AddBookModel model) {
         try {
             var url = this._entityUrl + MethodUrl.UpdateBookAndAuthor;
             var httpClient = this.CreateClient();

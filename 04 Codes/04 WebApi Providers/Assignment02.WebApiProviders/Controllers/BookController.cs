@@ -54,7 +54,7 @@ public class BookController : BaseEntityWebApiProvider<Book, IBookLogicProvider>
 
     #region [ Methods - Update ]
     [HttpPut(nameof(MethodUrl.UpdateBookAndAuthor))]
-    public async Task<IActionResult> UpdateBookAndAuthorAsync([FromBody] UpdateBookAndAuthorModel model) {
+    public async Task<IActionResult> UpdateBookAndAuthorAsync([FromBody] AddBookModel model) {
         try {
             var result = await this._logicProvider.UpdateBookAndAuthorAsync(model);
             if (result) {

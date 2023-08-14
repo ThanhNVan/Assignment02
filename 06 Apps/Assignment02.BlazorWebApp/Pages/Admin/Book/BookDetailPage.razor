@@ -18,110 +18,133 @@
 } else {
     <PageTitle>Books</PageTitle>
     <h4>Book Details</h4>
-    <div class="col-lg-12">
-        <EditForm Model="@SelectedBook">
-
-            <div style="padding-top: 20px;">
-                <div class="form-group col-md-6">
-                    <label class="example-label">Title</label>
-                    <SfTextBox Type="InputType.Text" @bind-Value=SelectedBook.Title CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" ></SfTextBox>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label class="example-label">Type</label>
-                    <SfTextBox ID="Type" Type="InputType.Text" @bind-Value=SelectedBook.Type CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" ></SfTextBox>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label class="example-label">Price</label>
-                    <SfNumericTextBox ID="Price" @bind-Value=SelectedBook.Price CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" ></SfNumericTextBox>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label class="example-label">Advance</label>
-                    <SfTextBox ID="Advance" Type="InputType.Text" @bind-Value=SelectedBook.Advance CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" ></SfTextBox>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label class="example-label">Royalty</label>
-                    <SfTextBox ID="Royalty" Type="InputType.Text" @bind-Value=SelectedBook.Royalty CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" ></SfTextBox>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label class="example-label">Sales</label>
-                    <SfNumericTextBox ID="Sales" @bind-Value=SelectedBook.Sales CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" ></SfNumericTextBox>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label class="example-label">Note</label>
-                    <SfTextBox ID="Note" Type="InputType.Text" @bind-Value=SelectedBook.Note CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always"></SfTextBox>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label class="example-label">Publisher Date</label>
-                    <SfDatePicker ID="PublishedDate" Type="InputType.Text" @bind-Value=SelectedBook.PublishedDate CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always"></SfDatePicker>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label class="example-label">Publisher Name</label>
-                    <SfDropDownList @bind-Value=@(SelectedBook.PublisherId) DataSource="@AllPublishers" Placeholder="Publisher Name">
-                        <DropDownListFieldSettings Value="Id" Text="Name">
-                        </DropDownListFieldSettings>
-                    </SfDropDownList>
-                </div>
-                <br />
-                <span>Author</span>
 
 
-                @foreach (var item in SelectedAuthors) {
-                    <div class="form-group col-md-6">
-                        <SfTextBox Value=@(item.FirstName + " " + item.LastName) CssClass="e-small" Width="100" FloatLabelType="FloatLabelType.Always" Enabled="false"></SfTextBox>
-                    </div>
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Title* :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Email" @bind-Value=SelectedBook.Title CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
 
-                    <text>Change into</text>
+            <dt class="col-sm-2">
+                Type* :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=SelectedBook.Type CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
 
-                    <div class="form-group col-md-6">
-                        <SfDropDownList @bind-Value=@(item.Id) AllowFiltering="true" DataSource="@AllAuthors" TValue="string" TItem="Author" FloatLabelType="FloatLabelType.Always">
-                            <DropDownListTemplates TItem="Author">
-                                <ItemTemplate Context="child_context">
-                                    @{
-                                        var dropDownItem = child_context as Author;
-                                        <div>
-                                            <span>  @(dropDownItem.FirstName + " " + dropDownItem.LastName)</span>
-                                        </div>
-                                    }
-                                </ItemTemplate>
+            <dt class="col-sm-2">
+                Price* :
+            </dt>
+            <dd class="col-sm-4">
+                <SfNumericTextBox @bind-Value=SelectedBook.Price CssClass="e-small" Width="100"></SfNumericTextBox>
+            </dd>
 
-                                <ValueTemplate Context="child_context">
-                                    @{
-                                        var dropDownItem = child_context as Author;
-                                        <div>
-                                            <span>@(dropDownItem.FirstName + " " + dropDownItem.LastName)</span>
-                                        </div>
-                                    }
-                                </ValueTemplate>
-                            </DropDownListTemplates>
-                            <DropDownListFieldSettings Value="Id" Text="FirstName">
-                            </DropDownListFieldSettings>
-                            @{
-                               
+            <dt class="col-sm-2">
+                Advance :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=SelectedBook.Advance CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Royalty :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=SelectedBook.Royalty CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Sales :
+            </dt>
+            <dd class="col-sm-4">
+                <SfNumericTextBox @bind-Value=SelectedBook.Sales CssClass="e-small" Width="100"></SfNumericTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Note :
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=SelectedBook.Note CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Created At:
+            </dt>
+            <dd class="col-sm-4">
+                <SfDatePicker Value=@this.SelectedBook.CreatedAt CssClass="e-small" Width="100" Readonly=true></SfDatePicker>
+            </dd>
+
+            <dt class="col-sm-2">
+                Last Updated At:
+            </dt>
+            <dd class="col-sm-4">
+                <SfDatePicker Value=@this.SelectedBook.LastUpdatedAt CssClass="e-small" Width="100" Readonly=true></SfDatePicker>
+            </dd>
+
+            <dt class="col-sm-2">
+                Is Deleted:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" Value=@SelectedBook.IsDeleted.ToString() CssClass="e-small" Width="100" Readonly=true></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Published Date* :
+            </dt>
+            <dd class="col-sm-4">
+                <SfDatePicker @bind-Value=SelectedBook.PublishedDate CssClass="e-small"></SfDatePicker>
+            </dd>
+
+            <dt class="col-sm-2">
+                Publisher* :
+            </dt>
+            <dd class="col-sm-4">
+                <SfDropDownList @bind-Value=@(SelectedBook.PublisherId) DataSource="@AllPublishers" Placeholder="Publisher Name">
+                    <DropDownListFieldSettings Value="Id" Text="Name">
+                    </DropDownListFieldSettings>
+                </SfDropDownList>
+            </dd>
+            <span>Author</span>
+            <dt class="col-sm-2">
+                <SfButton @onclick="() => AddAuthor()">Add an Author</SfButton>
+            </dt>
+
+            <dd class="col-sm-4">
+                @foreach (var item in this.SelectedAuthors) {
+                    <SfDropDownList @bind-Value=@(item.Id) DataSource="@AllAuthors" TValue="string" TItem="AuthorModel">
+                        <DropDownListTemplates TItem="AuthorModel">
+
+                        </DropDownListTemplates>
+                        @{
+                            <dt class="col-sm-2">
                                 <SfButton @onclick="() => RemoveAuthor(item)">Remove Author</SfButton>
-                            }
-                        </SfDropDownList>
-                    </div>
+                            </dt>
+                        }
+                        <DropDownListFieldSettings Value="Id" Text="FullName"></DropDownListFieldSettings>
+                    </SfDropDownList>
                 }
-            </div>
-            <br />
-            <SfButton @onclick="() => AddAuthor()">Add an Author</SfButton>
-        </EditForm>
-        <div class="temp">
-            <br />
-            <div class="col-xs-12 col-sm-12 col-lg-6 col-md-6">
-                <SfButton @onclick="async () => await CancelAsync()" CssClass="e-warning">Cancel</SfButton>
+            </dd>
+
+            <dt class="col-sm-2">
                 <SfButton @onclick="async () => await SaveAsync()">Save</SfButton>
-            </div>
-        </div>
-        <div class="temp">
-        </div>
+            </dt>
+            <dd class="col-sm-4">
+                <SfButton @onclick="async () => await CancelAsync()" CssClass="e-warning">Cancel</SfButton>
+            </dd>
+            @if (SelectedBook.IsDeleted) {
+                <dt class="col-sm-2">
+                    <SfButton @onclick="async () => await RecoverAsync()">Recover</SfButton>
+                </dt>
+
+            } else {
+                <dt class="col-sm-2">
+                    <SfButton @onclick="async () => await SoftDeleteAsync()">Delete</SfButton>
+                </dt>
+            }
+        </dl>
     </div>
 }

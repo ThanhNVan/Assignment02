@@ -58,7 +58,7 @@ public partial class BookNewPage
 
             this.Publishers = await this.HttpClientContext.Publisher.GetListIsNotDeletedAsync();
             if (AllAuthors != null) {
-                this.Authors = new List<AuthorModel>() { this.AllAuthors.First() };
+                this.Authors = new List<AuthorModel>() { this.AllAuthors.FirstOrDefault() };
             } else {
                 this.Authors = new List<AuthorModel>() {};
             }
@@ -76,10 +76,6 @@ public partial class BookNewPage
     }
 
     private async Task AddAsync() {
-        //var result = await this.HttpClientContext.Book.AddAsync(this.Book);
-        //if (result) {
-        //    this.Navigation.NavigateTo("/Admin/Books");
-        //}
         var authorIds = new List<string>();
         foreach (var item in this.Authors)
         {

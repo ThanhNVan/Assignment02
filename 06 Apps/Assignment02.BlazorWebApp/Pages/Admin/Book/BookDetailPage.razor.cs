@@ -33,9 +33,9 @@ public partial class BookDetailPage
 
     private Book SelectedBook { get; set; }
 
-    private IEnumerable<Author> SelectedAuthors { get; set; }
+    private List<AuthorModel> SelectedAuthors { get; set; }
 
-    private IEnumerable<Author> AllAuthors { get; set; }
+    private List<AuthorModel> AllAuthors { get; set; }
     private IEnumerable<Publisher> AllPublishers { get; set; }
     #endregion
 
@@ -48,10 +48,34 @@ public partial class BookDetailPage
 
         if (!string.IsNullOrEmpty(Role)) {
             this._book = await this.HttpClientContext.Book.GetSingleByIdAsync(this.BookId);
-            this._book.Publisher = await this.HttpClientContext.Publisher.GetSingleByIdAsync(this._book.PublisherId);
-            this.SelectedAuthors = await this.HttpClientContext.Author.GetListByBookIdAsync(this.BookId);
-            this.AllAuthors = await this.HttpClientContext.Author.GetListIsNotDeletedAsync();
-            this.AllPublishers= await this.HttpClientContext.Publisher.GetListIsNotDeletedAsync();
+            this.AllPublishers = await this.HttpClientContext.Publisher.GetListIsNotDeletedAsync();
+            this._book.Publisher = this.AllPublishers.FirstOrDefault(x => x.Id == this._book.PublisherId);
+
+            var allAuthor = await this.HttpClientContext.Author.GetListIsNotDeletedAsync();
+            this.AllAuthors = new List<AuthorModel>() { };
+            foreach (var item in allAuthor) {
+                if (!string.IsNullOrEmpty(item.Id)) {
+
+                    var authorModel = new AuthorModel() {
+                        Id = item.Id,
+                        FullName = item.FirstName + " " + item.LastName,
+                    };
+                    this.AllAuthors.Add(authorModel);
+                }
+            }
+
+            var selectedAuthors = await this.HttpClientContext.Author.GetListByBookIdAsync(this.BookId);
+            this.SelectedAuthors = new List<AuthorModel>() { };
+            foreach (var item in selectedAuthors) {
+                if (!string.IsNullOrEmpty(item.Id)) {
+
+                    var authorModel = new AuthorModel() {
+                        Id = item.Id,
+                    };
+                    this.SelectedAuthors.Add(authorModel);
+                }
+            }
+
             this.SelectedBook = this._book;
         }
         StateHasChanged();
@@ -67,9 +91,15 @@ public partial class BookDetailPage
     }
 
     private async Task SaveAsync() {
-        var model = new UpdateBookAndAuthorModel {
+        var authorIds = new List<string>() { };
+        foreach (var item in this.SelectedAuthors) {
+            if (!string.IsNullOrEmpty(item.Id)) {
+                authorIds.Add(item.Id);
+            }
+        }
+        var model = new AddBookModel {
             Book = this.SelectedBook,
-            Authors = this.SelectedAuthors,
+            AuthorIds = authorIds,
         };
 
         var result = await this.HttpClientContext.Book.UpdateBookAndAuthorAsync(model);
@@ -78,7 +108,7 @@ public partial class BookDetailPage
             await this.OnInitializedAsync();
         }
     }
-    
+
     private void AddAuthor() {
         var newAuthor = this.AllAuthors.FirstOrDefault();
         var result = this.SelectedAuthors.ToList();
@@ -86,8 +116,8 @@ public partial class BookDetailPage
 
         this.SelectedAuthors = result;
     }
-    
-    private void RemoveAuthor(Author author) {
+
+    private void RemoveAuthor(AuthorModel author) {
         var result = this.SelectedAuthors.ToList();
         if (result.Count() <= 1) {
             return;
@@ -95,6 +125,20 @@ public partial class BookDetailPage
         result.Remove(author);
 
         this.SelectedAuthors = result;
+    }
+
+    private async Task SoftDeleteAsync() {
+        var result = await this.HttpClientContext.Book.SoftDeleteAsync(this.SelectedBook.Id);
+        if (result) {
+            await this.OnInitializedAsync();
+        }
+    }
+
+    private async Task RecoverAsync() {
+        var result = await this.HttpClientContext.Book.RecoverAsync(this.SelectedBook.Id);
+        if (result) {
+            await this.OnInitializedAsync();
+        }
     }
     #endregion
 }

@@ -41,8 +41,8 @@ public class BookLogicProvider : BaseEntityLogicProvider<Book, IBookDataProvider
     #endregion
 
     #region [ Methods - Update ]
-    public async Task<bool> UpdateBookAndAuthorAsync(UpdateBookAndAuthorModel model) {
-        if (string.IsNullOrEmpty(model.Book.Id) || model.Authors == null) {
+    public async Task<bool> UpdateBookAndAuthorAsync(AddBookModel model) {
+        if (string.IsNullOrEmpty(model.Book.Id) || model.AuthorIds == null) {
             return false;
         }
 
@@ -58,25 +58,18 @@ public class BookLogicProvider : BaseEntityLogicProvider<Book, IBookDataProvider
             await this._dataContext.BookAuthor.SoftDeleteAsync(item.Id);
         }
 
-        foreach (var dbItem in dbBookAuthor) {
-            foreach (var apiItem in model.Authors) {
-                if (dbItem.AuthorId != apiItem.Id) {
-                    var dbResult = await this._dataContext.BookAuthor.GetSingleByIndexAsync(new BookAuthorModel { BookId = model.Book.Id, AuthorId = apiItem.Id });
-                    if (dbResult == null) {
-                        var newBookAuthor = new BookAuthor();
-                        newBookAuthor.BookId = model.Book.Id;
-                        newBookAuthor.AuthorId = apiItem.Id;
-                        var aa = await this._dataContext.BookAuthor.AddAsync(newBookAuthor);
-                    } else if (dbResult.IsDeleted == true) {
-                        await this._dataContext.BookAuthor.RecoverAsync(dbResult.Id);
-                    }
-                } else {
-
-                    var aa = await this._dataContext.BookAuthor.SoftDeleteAsync(dbItem.Id);
-
-                }
+        foreach (var item in model.AuthorIds) {
+            var dbEntity = await this._dataContext.BookAuthor.GetSingleByIndexAsync(new BookAuthorModel { BookId = model.Book.Id, AuthorId = item });
+            if (dbEntity == null) {
+                var bookAuthor = new BookAuthor();
+                bookAuthor.BookId = model.Book.Id;
+                bookAuthor.AuthorId = item;
+                await this._dataContext.BookAuthor.AddAsync(bookAuthor);
+            } else {
+                await this._dataContext.BookAuthor.RecoverAsync(dbEntity.Id); 
             }
-        }
+        } 
+        
         return true;
     }
     #endregion
