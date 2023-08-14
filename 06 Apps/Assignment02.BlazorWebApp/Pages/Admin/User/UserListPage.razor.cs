@@ -52,5 +52,9 @@ public partial class UserListPage
     private void ViewUserDetailPage(string userId) {
         this.Navigation.NavigateTo($"/Admin/Users/Details/{userId}");
     }
+
+    private void AddNew() {
+        this.Navigation.NavigateTo("/Admin/Users/New");
+    }
     #endregion
 }

@@ -136,14 +136,14 @@
                 <SfButton @onclick="async () => await CancelAsync()" CssClass="e-warning">Cancel</SfButton>
             </dd>
             @if (SelectedBook.IsDeleted) {
-                <dt class="col-sm-2">
+                <dd class="col-sm-4">
                     <SfButton @onclick="async () => await RecoverAsync()">Recover</SfButton>
-                </dt>
+                </dd>
 
             } else {
-                <dt class="col-sm-2">
+                <dd class="col-sm-4">
                     <SfButton @onclick="async () => await SoftDeleteAsync()">Delete</SfButton>
-                </dt>
+                </dd>
             }
         </dl>
     </div>

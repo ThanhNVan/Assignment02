@@ -1,0 +1,108 @@
+﻿@page "/Admin/Users/New"
+@using Assignment02.EntityProviders;
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Calendars
+@using Syncfusion.Blazor.DropDowns
+
+@namespace Assignment02.BlazorWebApp
+
+
+@if (string.IsNullOrEmpty(Role)) {
+    <PageTitle>Unauthorized</PageTitle>
+    <Unauthorized></Unauthorized>
+} else if (Role == AppRole.Admin) {
+    <PageTitle>User</PageTitle>
+    <h3>User</h3>
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                Email Address:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Email" @bind-Value=@this.User.Email CssClass="e-small" Width="100"></SfTextBox>
+                <h5 class="text-danger">@WarningEmail</h5>
+            </dd>
+
+            <dt class="col-sm-2">
+                First name:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=@this.User.FirstName CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Middle name:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=@this.User.MiddleName CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Last name:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" @bind-Value=@this.User.LastName CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Hired Date:
+            </dt>
+            <dd class="col-sm-4">
+                <SfDatePicker @bind-Value=@this.User.HiredDate CssClass="e-small" Width="100" ></SfDatePicker>
+            </dd>
+
+            <dt class="col-sm-2">
+                Password:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Password" @bind-Value=@this.User.Password CssClass="e-small" Width="100"></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Is Deleted:
+            </dt>
+            <dd class="col-sm-4">
+                <SfTextBox Type="InputType.Text" Value=@this.User.IsDeleted.ToString() CssClass="e-small" Width="100" Readonly=true></SfTextBox>
+            </dd>
+
+            <dt class="col-sm-2">
+                Created At:
+            </dt>
+            <dd class="col-sm-4">
+                <SfDatePicker Value=@this.User.CreatedAt CssClass="e-small" Width="100" Readonly=true></SfDatePicker>
+            </dd>
+
+            <dt class="col-sm-2">
+                Last Updated At:
+            </dt>
+            <dd class="col-sm-4">
+                <SfDatePicker Value=@this.User.LastUpdatedAt CssClass="e-small" Width="100" Readonly=true></SfDatePicker>
+            </dd>
+
+            <dt class="col-sm-2">
+                Publisher:
+            </dt>
+            <dd class="col-sm-4">
+                <SfDropDownList @bind-Value=@(this.User.PublisherId) DataSource="@this.Publishers">
+                    <DropDownListFieldSettings Value="Id" Text="Name">
+                    </DropDownListFieldSettings>
+                </SfDropDownList>
+            </dd>
+
+            <dt class="col-sm-2">
+                Role:
+            </dt>
+            <dd class="col-sm-4">
+                <SfDropDownList @bind-Value=@(this.User.RoleId) DataSource="@this.Roles">
+                    <DropDownListFieldSettings Value="Id" Text="Description">
+                    </DropDownListFieldSettings>
+                </SfDropDownList>
+            </dd>
+            <dt class="col-sm-2">
+                <SfButton @onclick="async () => await AddAsync()">Add</SfButton>
+                <SfButton @onclick="async () => await CancelAsync()">Cancel</SfButton>
+            </dt>
+        </dl>
+    </div>
+}
