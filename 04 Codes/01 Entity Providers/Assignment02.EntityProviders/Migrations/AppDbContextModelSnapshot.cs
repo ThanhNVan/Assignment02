@@ -80,9 +80,6 @@ namespace Assignment02.EntityProviders.Migrations
                     b.Property<string>("Advance")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Book_Publisher")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -121,8 +118,6 @@ namespace Assignment02.EntityProviders.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Book_Publisher");
-
                     b.ToTable("Book");
                 });
 
@@ -137,12 +132,6 @@ namespace Assignment02.EntityProviders.Migrations
 
                     b.Property<string>("AuthorOrder")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BookAuthor_Author")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("BookAuthor_Book")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BookId")
                         .IsRequired()
@@ -161,10 +150,6 @@ namespace Assignment02.EntityProviders.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BookAuthor_Author");
-
-                    b.HasIndex("BookAuthor_Book");
 
                     b.HasIndex("BookId", "AuthorId")
                         .IsUnique();
@@ -278,83 +263,12 @@ namespace Assignment02.EntityProviders.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("User_Publisher")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("User_Role")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.HasIndex("User_Publisher");
-
-                    b.HasIndex("User_Role");
-
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("Assignment02.EntityProviders.Book", b =>
-                {
-                    b.HasOne("Assignment02.EntityProviders.Publisher", "Publisher")
-                        .WithMany("Books")
-                        .HasForeignKey("Book_Publisher");
-
-                    b.Navigation("Publisher");
-                });
-
-            modelBuilder.Entity("Assignment02.EntityProviders.BookAuthor", b =>
-                {
-                    b.HasOne("Assignment02.EntityProviders.Author", "Author")
-                        .WithMany("BookAuthor")
-                        .HasForeignKey("BookAuthor_Author");
-
-                    b.HasOne("Assignment02.EntityProviders.Book", "Book")
-                        .WithMany("BookAuthor")
-                        .HasForeignKey("BookAuthor_Book");
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("Assignment02.EntityProviders.User", b =>
-                {
-                    b.HasOne("Assignment02.EntityProviders.Publisher", "Publisher")
-                        .WithMany("Users")
-                        .HasForeignKey("User_Publisher");
-
-                    b.HasOne("Assignment02.EntityProviders.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("User_Role");
-
-                    b.Navigation("Publisher");
-
-                    b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("Assignment02.EntityProviders.Author", b =>
-                {
-                    b.Navigation("BookAuthor");
-                });
-
-            modelBuilder.Entity("Assignment02.EntityProviders.Book", b =>
-                {
-                    b.Navigation("BookAuthor");
-                });
-
-            modelBuilder.Entity("Assignment02.EntityProviders.Publisher", b =>
-                {
-                    b.Navigation("Books");
-
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Assignment02.EntityProviders.Role", b =>
-                {
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

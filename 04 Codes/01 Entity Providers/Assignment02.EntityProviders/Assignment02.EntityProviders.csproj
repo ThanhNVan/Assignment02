@@ -28,8 +28,4 @@
     <ProjectReference Include="..\..\..\02 Libraries\Assignment02.SharedLibrary.BaseEntity\Assignment02.SharedLibrary.BaseEntity.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

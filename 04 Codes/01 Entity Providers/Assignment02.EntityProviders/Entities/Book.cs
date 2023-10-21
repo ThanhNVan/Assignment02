@@ -47,7 +47,7 @@ public class Book : BaseEntity
     #region [ Virtual FK Properties ]
     [JsonIgnore]
     [NotMapped]
-    [ForeignKey("Book_Publisher")]
+    [ForeignKey("PublisherId")]
     [InverseProperty("Books")]
     public virtual Publisher? Publisher { get; set; } 
     

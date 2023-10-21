@@ -29,13 +29,13 @@ public class BookAuthor : BaseEntity
     #region [ Virtual FK Properties ]
     [JsonIgnore]
     [NotMapped]
-    [ForeignKey("BookAuthor_Author")]
+    [ForeignKey("AuthorId")]
     [InverseProperty("BookAuthor")]
     public Author? Author { get; set; }
     
     [JsonIgnore]
     [NotMapped]
-    [ForeignKey("BookAuthor_Book")]
+    [ForeignKey("BookId")]
     [InverseProperty("BookAuthor")]
     public Book? Book { get; set; }
     #endregion
